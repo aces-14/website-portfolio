@@ -1,0 +1,48 @@
+---
+const experiences = [
+  {
+    role: 'Technical Sales Intern',
+    company: '3E HITECH SOLUTIONS, INC.',
+    period: 'January 2026 – June 2026',
+    points: [
+      "Supported pre-sales activities for the company's solutions, focusing on projects with the National Grid Corporation of the Philippines (NGCP) — contributing to proposal preparation, scoping, and technical clarifications with stakeholders.",
+      'Assisted project management across NGCP deployments — coordinating timelines, tracking deliverables, and supporting communication between technical teams and clients.',
+    ],
+  },
+];
+---
+
+<section id="experience" class="py-14 md:py-20 scroll-mt-16 bg-surface/20">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="animate-on-scroll">
+      <p class="text-xs font-mono text-accent uppercase tracking-[0.2em] mb-2">Experience</p>
+      <div class="w-10 h-px bg-accent mb-12"></div>
+    </div>
+
+    <div class="max-w-3xl space-y-10">
+      {experiences.map((exp) => (
+        <div class="animate-on-scroll">
+          <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 mb-5">
+            <div>
+              <h3 class="text-text-primary font-semibold text-lg leading-snug">{exp.role}</h3>
+              <p class="text-accent text-sm font-mono mt-0.5">{exp.company}</p>
+            </div>
+            <span class="text-text-muted text-xs font-mono shrink-0 mt-0.5 sm:text-right">
+              {exp.period}
+            </span>
+          </div>
+          <ul class="space-y-3" role="list">
+            {exp.points.map((point) => (
+              <li class="flex gap-3 text-text-muted text-sm leading-relaxed">
+                <span class="text-accent mt-1.5 shrink-0 text-xs" aria-hidden="true">▸</span>
+                <span>{point}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>

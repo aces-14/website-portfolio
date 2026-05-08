@@ -1,0 +1,63 @@
+---
+const skillGroups = [
+  {
+    category: 'Machine Learning & AI',
+    items: [
+      'Python', 'PyTorch', 'Hugging Face Transformers', 'BERT', 'DistilBERT',
+      'LayoutLMv3', 'Flan-T5', 'scikit-learn', 'XGBoost', 'SHAP',
+      'sentence-transformers', 'ChromaDB', 'NumPy', 'pandas',
+    ],
+  },
+  {
+    category: 'LLM & Agentic Systems',
+    items: [
+      'LangChain', 'LangGraph', 'RAG Architecture', 'Multi-Agent Orchestration',
+      'Groq · Llama 3.3 70B', 'Tavily Search API', 'Pydantic v2',
+      'Prompt Engineering', 'LangSmith',
+    ],
+  },
+  {
+    category: 'MLOps & Deployment',
+    items: [
+      'FastAPI', 'Docker', 'Hugging Face Spaces', 'Gradio', 'Railway',
+      'REST API Design', 'Swagger / OpenAPI', 'pdfplumber', 'python-docx',
+    ],
+  },
+  {
+    category: 'Backend & Data',
+    items: ['Django', 'Flask', 'MySQL', 'SQL Query Optimization', 'JavaScript (ES6+)'],
+  },
+  {
+    category: 'Tools & Practices',
+    items: ['Git / GitHub', 'Agile', 'Code Review', 'Testing', 'Debugging'],
+  },
+];
+---
+
+<section id="skills" class="py-14 md:py-20 scroll-mt-16 bg-surface/20">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="animate-on-scroll">
+      <p class="text-xs font-mono text-accent uppercase tracking-[0.2em] mb-2">Technical Skills</p>
+      <div class="w-10 h-px bg-accent mb-12"></div>
+    </div>
+
+    <div class="space-y-9">
+      {skillGroups.map((group) => (
+        <div class="animate-on-scroll">
+          <h3 class="text-xs font-semibold text-text-primary uppercase tracking-[0.15em] mb-3">
+            {group.category}
+          </h3>
+          <div class="flex flex-wrap gap-2">
+            {group.items.map((item) => (
+              <span class="px-3 py-1.5 bg-surface border border-border text-text-muted text-xs font-mono rounded-sm hover:border-accent/40 hover:text-text-primary transition-colors duration-200 cursor-default">
+                {item}
+              </span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>

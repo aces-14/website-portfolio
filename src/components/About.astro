@@ -1,0 +1,45 @@
+---
+const chips = [
+  'Cavite, Philippines',
+  'TUP–Cavite · Computer Engineering',
+  'Open to remote roles',
+];
+---
+
+<section id="about" class="py-14 md:py-20 scroll-mt-16">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="animate-on-scroll">
+      <p class="text-xs font-mono text-accent uppercase tracking-[0.2em] mb-2">About</p>
+      <div class="w-10 h-px bg-accent mb-12"></div>
+    </div>
+
+    <div class="max-w-3xl space-y-5">
+      <p class="animate-on-scroll text-text-primary text-lg leading-relaxed">
+        I'm an aspiring AI/ML Engineer who ships production systems, not just experiments. My work spans
+        agentic LLM pipelines, RAG architectures, and multimodal document AI — all deployed with
+        live demos on Hugging Face Spaces.
+      </p>
+      <p class="animate-on-scroll text-text-muted text-base leading-relaxed">
+        I came up through fullstack web engineering — Django, MySQL, REST APIs at production scale
+        (1000+ users on my thesis project) — and have spent the last year going deep on applied
+        AI/ML, building systems that move beyond notebooks to real-world deployments.
+      </p>
+      <p class="animate-on-scroll text-text-muted text-base leading-relaxed">
+        Currently focused on:
+        <span class="text-text-primary font-medium">agentic LLM systems</span>,
+        <span class="text-text-primary font-medium">RAG architecture</span>, and
+        <span class="text-text-primary font-medium">multimodal document AI</span>.
+      </p>
+
+      <div class="animate-on-scroll pt-3 flex flex-wrap gap-2">
+        {chips.map((chip) => (
+          <span class="px-3 py-1.5 bg-surface border border-border text-text-muted text-xs font-mono rounded-sm">
+            {chip}
+          </span>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</section>
