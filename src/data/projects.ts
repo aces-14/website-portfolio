@@ -6,27 +6,30 @@ export type Project = {
   highlight?: string;
   tech: string[];
   category: 'agentic' | 'rag' | 'document-ai' | 'classical-ml';
+  blogUrl?: string;
   links: {
     huggingface?: string;
     github?: string;
     colab?: string;
     apiDocs?: string;
+    demo?: string;
   };
 };
 
 export const projects: Project[] = [
   {
-    slug: 'job-application-agent',
-    title: 'Job Application Assistant Agent',
-    subtitle: 'Autonomous Multi-Step LLM Agent',
+    slug: 'sentinelph',
+    title: 'SentinelPH — Dengue Risk Monitor',
+    subtitle: 'Multi-Agent Public Health Intelligence Platform',
     description:
-      'A 9-step agent with integrity enforcement — architecturally prohibited from fabricating resume content. A post-tailoring diff check flags violations, with every change logged in a fully auditable changelog (reason + confidence score). Pipeline: resume parsing → JD scoring → company research → ATS-tailored resume + cover letter + outreach in under 30 seconds.',
-    highlight: 'integrity enforcement',
-    tech: ['Python', 'Groq (Llama 3.3 70B)', 'Tavily Search API', 'Pydantic v2', 'Gradio', 'python-docx'],
+      'A full-stack public health intelligence platform for Philippine dengue surveillance. Ingests 12 years of case data, weather records, news signals, and Google Trends; runs an XGBoost risk model that outperforms the ARIMA baseline by ~40%; delivers citation-enforced RAG answers from WHO guidelines; and generates AI situation briefings via a 4-node LangGraph validator workflow.',
+    highlight: 'outperforms the ARIMA baseline by ~40%',
+    tech: ['Python', 'LangGraph', 'XGBoost', 'ChromaDB', 'Groq (Llama 3.3 70B)', 'Streamlit', 'BAAI/bge-small-en-v1.5'],
     category: 'agentic',
+    blogUrl: '/projects/sentinelph',
     links: {
-      huggingface: 'https://acepilpil-job-application-agent.hf.space',
-      github: 'https://github.com/aces-14/job-application-agent.git',
+      demo: 'https://sentinel-ph.streamlit.app/',
+      github: 'https://github.com/aces-14/sentinel-ph',
     },
   },
   {
@@ -41,6 +44,20 @@ export const projects: Project[] = [
     links: {
       huggingface: 'https://acepilpil-market-intelligence-agent.hf.space',
       github: 'https://github.com/aces-14/market-intelligence-agent.git',
+    },
+  },
+  {
+    slug: 'job-application-agent',
+    title: 'Job Application Assistant Agent',
+    subtitle: 'Autonomous Multi-Step LLM Agent',
+    description:
+      'A 9-step agent with integrity enforcement — architecturally prohibited from fabricating resume content. A post-tailoring diff check flags violations, with every change logged in a fully auditable changelog (reason + confidence score). Pipeline: resume parsing → JD scoring → company research → ATS-tailored resume + cover letter + outreach in under 30 seconds.',
+    highlight: 'integrity enforcement',
+    tech: ['Python', 'Groq (Llama 3.3 70B)', 'Tavily Search API', 'Pydantic v2', 'Gradio', 'python-docx'],
+    category: 'agentic',
+    links: {
+      huggingface: 'https://acepilpil-job-application-agent.hf.space',
+      github: 'https://github.com/aces-14/job-application-agent.git',
     },
   },
   {

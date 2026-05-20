@@ -58,8 +58,8 @@ const categoryLabel: Record<string, string> = {
   </div>
 </section>
 
-<!-- Modals — pre-rendered at build time, one per project -->
-{projects.map((project) => {
+<!-- Modals — pre-rendered at build time, one per project (blog projects use a full page instead) -->
+{projects.filter((p) => !p.blogUrl).map((project) => {
   const desc = project.highlight
     ? project.description.replace(
         project.highlight,
@@ -209,6 +209,18 @@ const categoryLabel: Record<string, string> = {
     card.addEventListener('click', openModal);
     card.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(e); }
+    });
+  });
+
+  // Blog project card → navigate to case study page
+  document.querySelectorAll<HTMLElement>('[data-blog-url]').forEach((card) => {
+    const navigate = (e: Event) => {
+      if ((e.target as Element).closest('a')) return;
+      window.location.href = card.dataset.blogUrl!;
+    };
+    card.addEventListener('click', navigate);
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); navigate(e); }
     });
   });
 

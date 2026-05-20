@@ -1,0 +1,547 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const stats = [
+  { value: '109', label: 'tests passing', sub: 'pytest · all phases' },
+  { value: '0.70', label: 'test RMSE (log)', sub: 'vs 1.07 ARIMA' },
+  { value: '1,617', label: 'RAG chunks', sub: '8 PDFs · 406 pages' },
+  { value: '4', label: 'LangGraph nodes', sub: 'with validator pass' },
+  { value: '12', label: 'years of data', sub: '2012 – 2023' },
+  { value: '4', label: 'dashboard redesigns', sub: 'v1 → v2 → v3 → v4' },
+];
+---
+
+<BaseLayout
+  title="SentinelPH — Case Study | Reynald Ace Pilpil"
+  description="How a rejected thesis proposal became a dengue intelligence platform: 4 phases, 6 datasets, 4 dashboard redesigns, and one overprotective AI validator."
+>
+  <div class="min-h-screen bg-background">
+
+    <!-- Sticky top bar -->
+    <div class="sticky top-0 z-10 bg-background/92 backdrop-blur-sm border-b border-border">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-4">
+        <a
+          href="/#projects"
+          class="inline-flex items-center gap-2 text-text-muted hover:text-accent font-mono text-xs transition-colors shrink-0"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Back to Portfolio
+        </a>
+        <div class="flex items-center gap-2 shrink-0">
+          <a
+            href="https://sentinel-ph.streamlit.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-text-muted hover:text-accent font-mono text-xs border border-border hover:border-accent/40 px-3 py-1.5 rounded-sm transition-all"
+          >
+            Live Demo ↗
+          </a>
+          <a
+            href="https://github.com/aces-14/sentinel-ph"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-text-muted hover:text-accent font-mono text-xs border border-border hover:border-accent/40 px-3 py-1.5 rounded-sm transition-all"
+          >
+            GitHub ↗
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <article class="max-w-3xl mx-auto px-4 sm:px-6 pb-24">
+
+      <!-- ── HEADER ── -->
+      <header class="pt-14 pb-12 border-b border-border mb-14">
+        <div class="flex flex-wrap items-center gap-x-3 gap-y-2 mb-8">
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-accent/10 border border-accent/30 text-accent font-mono text-xs rounded-sm">
+            <span class="w-1.5 h-1.5 rounded-full bg-accent" style="animation: pulse 2s cubic-bezier(0.4,0,0.6,1) infinite;"></span>
+            LIVE
+          </span>
+          <span class="text-text-muted font-mono text-xs">Streamlit Community Cloud</span>
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl font-bold text-text-primary mb-3 tracking-tight">
+          SentinelPH
+        </h1>
+        <p class="text-xl text-text-muted font-light mb-5 leading-snug">
+          Dengue Risk Monitor for the Philippines
+        </p>
+        <p class="text-text-muted leading-relaxed max-w-2xl mb-8">
+          How a rejected thesis proposal turned into a multi-agent public health platform —
+          4 phases, 6 datasets, 4 dashboard redesigns, and one overprotective AI validator.
+        </p>
+
+        <div class="flex flex-wrap gap-2 mb-8">
+          {['Python 3.11', 'LangGraph', 'XGBoost', 'ChromaDB', 'Groq API', 'Streamlit', 'sentence-transformers', 'pytest'].map((t) => (
+            <span class="px-2.5 py-1 bg-surface border border-border text-text-muted text-xs font-mono rounded-sm">
+              {t}
+            </span>
+          ))}
+        </div>
+
+        <div class="flex flex-wrap gap-3">
+          <a
+            href="https://sentinel-ph.streamlit.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-5 py-2.5 bg-accent text-background font-mono text-sm font-medium rounded-sm hover:bg-accent/90 transition-colors"
+          >
+            Live Demo
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <path d="M7 17L17 7M17 7H7M17 7v10"/>
+            </svg>
+          </a>
+          <a
+            href="https://github.com/aces-14/sentinel-ph"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-5 py-2.5 border border-border text-text-muted font-mono text-sm rounded-sm hover:border-accent/40 hover:text-accent transition-all"
+          >
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.341-3.369-1.341-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.607.069-.607 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.087.636-1.337-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.934.359.309.678.919.678 1.852 0 1.337-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.138 20.161 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+            </svg>
+            GitHub
+          </a>
+        </div>
+      </header>
+
+      <!-- ── CONTENT ── -->
+      <div class="space-y-14 text-text-muted leading-relaxed">
+
+        <!-- THE PITCH -->
+        <section>
+          <p class="text-xs font-mono text-accent uppercase tracking-[0.2em] mb-2">Where this started</p>
+          <div class="w-10 h-px bg-accent mb-6"></div>
+
+          <p class="mb-4">
+            This project started as a research proposal to my professor. A dengue
+            <em class="text-text-primary not-italic">outbreak prediction</em> and monitoring system for
+            the Philippines — real-time risk scores, province-level outbreak alerts, the works.
+          </p>
+          <p class="mb-4">
+            He rejected it. Called it "too ambitious." He was right, and I only fully understood
+            why after actually building it.
+          </p>
+          <p class="mb-4">
+            The project still happened — just as a portfolio project instead of a thesis,
+            which turned out to be a much better outcome. Here's why I'm genuinely glad
+            it didn't go through the committee:
+          </p>
+
+          <ul class="space-y-3 pl-4 mb-4">
+            <li class="flex items-start gap-3">
+              <span class="shrink-0 font-mono text-accent text-xs mt-0.5">→</span>
+              <span>
+                <strong class="text-text-primary font-medium">The data to support "prediction" doesn't exist openly.</strong>{' '}
+                Province-level weekly surveillance data — the kind you'd need for meaningful outbreak forecasting —
+                only goes up to 2010 in OpenDengue, and it's monthly. The only usable recent dataset is
+                national weekly. You can't predict province-level outbreaks with national data.
+              </span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="shrink-0 font-mono text-accent text-xs mt-0.5">→</span>
+              <span>
+                <strong class="text-text-primary font-medium">The model isn't really "predicting" anything dramatic.</strong>{' '}
+                The strongest feature by far is last week's case count. The XGBoost model is mostly doing
+                autocorrelation with a seasonal adjustment. That's legitimately useful — it's just not the
+                breakthrough that "outbreak prediction" implies. A thesis would've needed a much more
+                defensible claim.
+              </span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="shrink-0 font-mono text-accent text-xs mt-0.5">→</span>
+              <span>
+                <strong class="text-text-primary font-medium">Real-time surveillance data isn't available as open data.</strong>{' '}
+                The system runs on 2012–2023 historical records. A real prediction system needs a live DOH or WHO feed.
+                That doesn't exist publicly. As a thesis, this would've been a fatal gap in the premise.
+              </span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="shrink-0 font-mono text-accent text-xs mt-0.5">→</span>
+              <span>
+                <strong class="text-text-primary font-medium">I redesigned the dashboard four times.</strong>{' '}
+                A thesis committee doesn't give you four redesigns. As a portfolio project, I could
+                throw out v1 after user feedback without a six-month approval cycle.
+              </span>
+            </li>
+          </ul>
+
+          <p>
+            So: "too ambitious" was accurate. What I built instead is a historical monitoring and risk-scoring
+            platform — honest about what it is, useful for what it does. I think that's better than a thesis
+            that overstates its claims to survive a committee.
+          </p>
+        </section>
+
+        <!-- PHASE 0 -->
+        <section>
+          <div class="flex items-center gap-3 mb-1">
+            <span class="text-xs font-mono text-accent/60 uppercase tracking-wider">Phase 0</span>
+          </div>
+          <h2 class="text-lg font-semibold text-text-primary mb-5">Setup — three bugs before writing real code</h2>
+
+          <p class="mb-4">
+            Spun up a Python 3.11 venv with <code>uv</code>. VS Code immediately complained because the
+            venv had no <code>pip</code>. Turns out <code>uv venv</code> doesn't include pip by default.
+            Fixed with <code>uv pip install pip</code>. Fine.
+          </p>
+          <p class="mb-4">
+            Then <code>uv sync</code> failed because hatchling couldn't find the package directory — the
+            project name was <code>sentinel-ph</code> but the code lived in <code>src/</code>. One
+            <code>pyproject.toml</code> config line to fix that.
+          </p>
+          <p>
+            Then scikit-learn had a broken partial install from an interrupted sync. Reinstalled it.
+            Three setup bugs before touching any real code. Normal.
+          </p>
+        </section>
+
+        <!-- PHASE 1 -->
+        <section>
+          <div class="flex items-center gap-3 mb-1">
+            <span class="text-xs font-mono text-accent/60 uppercase tracking-wider">Phase 1</span>
+          </div>
+          <h2 class="text-lg font-semibold text-text-primary mb-5">Data Ingestion — the data wasn't what I thought it was</h2>
+
+          <p class="mb-4">
+            The original plan was beautiful: province-level weekly dengue cases from 2016 to present.
+            A proper regional breakdown. Outbreaks by province. The whole thing.
+          </p>
+          <p class="mb-4">
+            Then I opened the actual OpenDengue V1.3 dataset.
+          </p>
+
+          <div class="bg-surface border border-border rounded-lg p-4 font-mono text-xs mb-5 space-y-1">
+            <p class="text-text-muted">Province-level (Admin2): <span class="text-accent">1993–2010, monthly</span></p>
+            <p class="text-text-muted">Region-level (Admin1): <span class="text-accent">1999–2020, annual</span></p>
+            <p class="text-text-muted">National (Admin0): <span class="text-accent">2012–2023, weekly ← the only usable one</span></p>
+          </div>
+
+          <p class="mb-4">
+            Half my design, gone before noon on day one. Pivoted to national weekly for the risk model,
+            regional annual for the map. This is why you look at your data before designing the system.
+          </p>
+          <p class="mb-4">
+            The other three datasets had their own personalities. Open-Meteo rate-limited after the 6th
+            region out of 18, so I built exponential backoff (10s → 20s → 40s). GDELT's news API
+            returned empty responses or 429s about 60% of the time — I accepted partial data since news
+            is a supplementary signal anyway. Google Trends rate-limited aggressively, and the Tagalog
+            search term "lagnat ng dengue" had too low a volume for the API to return weekly data for
+            most years.
+          </p>
+          <p>
+            GADM geographic data: I downloaded Philippines level-1 expecting 17 administrative regions.
+            Got 81 provinces. In GADM's hierarchy, Philippines treats provinces as the first
+            sub-national division. So the regional map was going to need a province → region lookup
+            that didn't exist in the dataset. Filed that for Phase 4's problem.
+          </p>
+        </section>
+
+        <!-- PHASE 2 -->
+        <section>
+          <div class="flex items-center gap-3 mb-1">
+            <span class="text-xs font-mono text-accent/60 uppercase tracking-wider">Phase 2</span>
+          </div>
+          <h2 class="text-lg font-semibold text-text-primary mb-5">RAG Layer — the DOH PDFs were images, LangChain moved everything, and the validator had opinions</h2>
+
+          <p class="mb-4">
+            Plan: ground the RAG layer in official Philippine health documents. First stop: DOH EDCS
+            disease surveillance reports.
+          </p>
+          <p class="mb-4">
+            They're image-scanned PDFs. Running OCR locally on my hardware wasn't viable.
+          </p>
+          <p class="mb-4">
+            Pivoted to 8 text-extractable PDFs — WHO Dengue Guidelines (both editions), WHO Technical
+            Handbook, Philippine and Timor-Leste clinical guidelines, three peer-reviewed papers. 406
+            pages, 1,617 chunks. Honestly a better corpus for a health Q&A bot than DOH surveillance
+            bulletins would have been anyway.
+          </p>
+          <p class="mb-4">
+            Setting up LangChain was an adventure in package archaeology. In LangChain 0.3+, text
+            splitters, ChromaDB integration, and HuggingFace embeddings each moved to their own
+            separate packages. Three failed imports, three installs:
+          </p>
+
+          <div class="bg-surface border border-border rounded-lg p-4 font-mono text-xs mb-5 space-y-2 text-text-muted">
+            <p><span class="text-accent/50">ImportError →</span> langchain.text_splitter <span class="text-accent">→ langchain-text-splitters</span></p>
+            <p><span class="text-accent/50">ImportError →</span> langchain.vectorstores.Chroma <span class="text-accent">→ langchain-chroma</span></p>
+            <p><span class="text-accent/50">ImportError →</span> langchain.embeddings.HuggingFaceEmbeddings <span class="text-accent">→ langchain-huggingface</span></p>
+          </div>
+
+          <p class="mb-4">
+            The RAG graph runs retrieve → generate → validate, where a separate LangGraph node audits
+            every answer for inline citations before it reaches the user. Without this, the LLM just
+            answers from parametric memory. For health questions, that's a problem.
+          </p>
+          <p class="mb-4">
+            First live test of the validator: the "dengue transmission" question got a perfectly
+            good, well-cited answer. Validator rejected it. Twice. Third attempt passed. The
+            "breakbone fever" question actually got a correct rejection on attempt 1 for speculative
+            language. So — sometimes over-strict, sometimes exactly right. I kept it.
+          </p>
+          <p>
+            Also caught that the embedding model was reloading 199 weight shards on every question.
+            The <code>node_retrieve</code> function was calling <code>load_vectorstore()</code>
+            directly, which constructed a new <code>HuggingFaceEmbeddings</code> instance each time.
+            Fixed with a module-level singleton. Weights now load once per process.
+          </p>
+        </section>
+
+        <!-- PHASE 3 -->
+        <section>
+          <div class="flex items-center gap-3 mb-1">
+            <span class="text-xs font-mono text-accent/60 uppercase tracking-wider">Phase 3</span>
+          </div>
+          <h2 class="text-lg font-semibold text-text-primary mb-5">Risk Model — XGBoost beats LSTM without breaking a sweat</h2>
+
+          <p class="mb-4">
+            600 rows. 12 years of weekly data. That's enough for XGBoost. For an LSTM to generalize
+            well, you'd want an order of magnitude more.
+          </p>
+          <p class="mb-4">
+            Built 25 features: case lags at 1, 2, 4, and 8 weeks; a 4-week rolling mean; weather
+            lags for temperature, rainfall, and humidity; Google Trends signal (search interest
+            precedes confirmed diagnoses by roughly a week); news count; epiweek; month; rainy season
+            flag. Target: <code>log(next week's cases)</code>. Temporal split — never touch test data
+            during training.
+          </p>
+
+          <div class="border border-border rounded-lg overflow-hidden mb-5">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-border bg-surface/40">
+                  <th class="text-left px-4 py-3 text-text-muted font-mono text-xs">Model</th>
+                  <th class="text-left px-4 py-3 text-text-muted font-mono text-xs">RMSE (log)</th>
+                  <th class="text-left px-4 py-3 text-text-muted font-mono text-xs">RMSE (cases)</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-border">
+                <tr class="bg-accent/5">
+                  <td class="px-4 py-3 text-accent font-mono text-xs font-medium">XGBoost</td>
+                  <td class="px-4 py-3 text-text-primary font-mono text-xs">0.70</td>
+                  <td class="px-4 py-3 text-text-primary font-mono text-xs">~979 cases</td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-3 text-text-muted font-mono text-xs">ARIMA (2,1,2)</td>
+                  <td class="px-4 py-3 text-text-muted font-mono text-xs">1.07</td>
+                  <td class="px-4 py-3 text-text-muted font-mono text-xs">~2,908 cases</td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-3 text-text-muted font-mono text-xs">Naive seasonal</td>
+                  <td class="px-4 py-3 text-text-muted font-mono text-xs">1.18</td>
+                  <td class="px-4 py-3 text-text-muted font-mono text-xs">~2,581 cases</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="mb-4">
+            XGBoost wins by ~40% on RMSE. Top feature: <code>cases_lag1</code> — last week's case
+            count, by a wide margin. Second: the 4-week rolling mean. Honest interpretation: the
+            model is mostly saying "next week looks like last week, adjusted for season." Weather
+            and Google Trends help at the margins. That's not a flaw — it's just what the data
+            supports.
+          </p>
+          <p class="mb-4">
+            One bug worth noting: in XGBoost 2.x, <code>early_stopping_rounds</code> belongs in the
+            constructor, not in <code>fit()</code>. Caught it when <code>model.best_iteration</code>
+            raised an <code>AttributeError</code>. Would have been nice to know upfront.
+          </p>
+
+          <h3 class="text-base font-semibold text-text-primary mt-8 mb-4">The multi-agent briefing workflow</h3>
+
+          <p class="mb-4">
+            The risk model gives you a number. The briefing workflow turns that number into something
+            a person can actually read. It's a 4-node LangGraph graph:
+          </p>
+
+          <div class="bg-surface border border-border rounded-lg p-4 font-mono text-xs text-text-muted mb-5">
+            <p>build_context → score_risk → generate_briefing → evaluate_briefing</p>
+            <p class="mt-2 pl-8 text-accent/50">↑                         |</p>
+            <p class="pl-8 text-accent/50">└────────── retry ──────────┘  (max 3 attempts)</p>
+          </div>
+
+          <p class="mb-4">
+            <code>build_context</code> queries SQLite for the last 8 weeks of cases (with week-over-week
+            and year-over-year percentages), national weather averages, Google Trends index, and 4-week
+            news count. <code>score_risk</code> runs the XGBoost scorer to get a risk level and top
+            drivers. <code>generate_briefing</code> calls Groq with all of that as structured context.
+            <code>evaluate_briefing</code> checks three things before the briefing can pass: every number
+            in the text must come from the context, the language must be hedged, and there must be no
+            medical advice.
+          </p>
+          <p class="mb-4">
+            First live test on 2023-10-01: the briefing was correct — specific numbers, hedged language,
+            no diagnosis claims. The evaluator rejected it twice before passing on attempt 3. Same
+            pattern as the RAG validator: over-strict, but I kept it. A false positive that makes the
+            model retry is better than a false negative that lets bad output through.
+          </p>
+          <p>
+            Briefings are pre-generated for key historical weeks and cached to SQLite. Real-time
+            generation takes 25–35 seconds through the full workflow. Cached briefings load in ~3
+            seconds. The dashboard labels them "Historical AI Briefing" — no pretending they're live.
+          </p>
+        </section>
+
+        <!-- PHASE 4 -->
+        <section>
+          <div class="flex items-center gap-3 mb-1">
+            <span class="text-xs font-mono text-accent/60 uppercase tracking-wider">Phase 4</span>
+          </div>
+          <h2 class="text-lg font-semibold text-text-primary mb-5">Dashboard — built and redesigned four times</h2>
+
+          <p class="mb-4">
+            <strong class="text-text-primary font-medium">v1</strong> was tab-based. Worked. That's the most
+            generous thing I can say about it.
+          </p>
+          <p class="mb-4">
+            <strong class="text-text-primary font-medium">v2</strong> happened after a real user review turned
+            up six problems at once. Not user-friendly. Design not modern. Technical jargon visible
+            to actual users (epiweek, WoW, YoY, RMSE, XGBoost — all of it, just sitting there).
+            A province scatter map with 81 dots and zero case data attached, serving no purpose.
+            "Latest Week Cases: 2,607 (+34.5% WoW)" presented as if it were current — the data is
+            from 2023, it's 2026. And tabs that felt outdated.
+          </p>
+          <p class="mb-4">
+            All valid. Rebuilt it: sidebar navigation, removed every piece of jargon, replaced the
+            useless dot map with a regional case bar chart showing actual information, added
+            plain-language intro boxes on every page, put "Data period: 2012–2023" everywhere
+            it could matter.
+          </p>
+          <p class="mb-4">
+            <strong class="text-text-primary font-medium">v3</strong> added a floating action button and modal
+            dialogs for the main features.
+          </p>
+          <p class="mb-4">
+            <strong class="text-text-primary font-medium">v4</strong> removed all three of those ideas.
+            The floating button was invisible — users would never find the main features. The modal
+            dialogs were two extra clicks of friction for no reason. The light map tiles
+            (<code>carto-positron</code>) clashed with the dark <code>#0F172A</code> UI. Replaced
+            with always-visible nav buttons, inline panels, and dark <code>carto-darkmatter</code>
+            tiles. That's what's live now.
+          </p>
+          <p>
+            Cold start on Streamlit Community Cloud takes 3–5 minutes while PyTorch and
+            sentence-transformers install fresh on the free-tier runner. Once warm, it's fast.
+            That's the cost of the free tier.
+          </p>
+        </section>
+
+        <!-- BY THE NUMBERS -->
+        <section>
+          <p class="text-xs font-mono text-accent uppercase tracking-[0.2em] mb-2">By The Numbers</p>
+          <div class="w-10 h-px bg-accent mb-6"></div>
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+            {stats.map(({ value, label, sub }) => (
+              <div class="bg-surface border border-border rounded-lg p-4">
+                <div class="text-2xl font-bold text-accent font-mono mb-1">{value}</div>
+                <div class="text-text-primary text-sm font-medium">{label}</div>
+                <div class="text-text-muted text-xs font-mono mt-0.5">{sub}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <!-- WHAT I'D DO DIFFERENTLY -->
+        <section>
+          <p class="text-xs font-mono text-accent uppercase tracking-[0.2em] mb-2">What I'd do differently</p>
+          <div class="w-10 h-px bg-accent mb-6"></div>
+          <ul class="space-y-3">
+            {[
+              'Contact DOH directly for CSV exports instead of assuming their surveillance reports are text-extractable.',
+              'Find PSA official regional shapefiles before designing a region-level map. Discovering GADM uses provinces, not regions, at the end of Phase 1 was avoidable.',
+              'Ship v4 of the dashboard from the start. I knew what good UI looked like. I just didn\'t do it first.',
+              'Be honest about what "prediction" means at the proposal stage. The model tells you what probably happens next week based on what happened last week. That\'s valuable — but it\'s not an outbreak alert system.',
+            ].map((item) => (
+              <li class="flex items-start gap-3 text-sm">
+                <span class="shrink-0 font-mono text-accent text-xs mt-0.5">→</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <!-- WHAT'S NEXT -->
+        <section>
+          <p class="text-xs font-mono text-accent uppercase tracking-[0.2em] mb-2">What's next (v2)</p>
+          <div class="w-10 h-px bg-accent mb-6"></div>
+          <ul class="space-y-3">
+            {[
+              'Fine-tune Llama 3.2 1B on Filipino dengue health text — NER for symptoms, locations, and severity — and publish to Hugging Face Hub.',
+              'Publish the cleaned OpenDengue dataset to Hugging Face Datasets.',
+              'Connect a live DOH or WHO data feed if one becomes available as open data.',
+              'Province-level granularity if PSA releases structured, machine-readable surveillance data.',
+            ].map((item) => (
+              <li class="flex items-start gap-3 text-sm">
+                <span class="shrink-0 font-mono text-accent text-xs mt-0.5">→</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </section>
+
+      </div>
+
+      <!-- ── FOOTER CTA ── -->
+      <div class="border-t border-border mt-14 pt-12">
+        <div class="flex flex-wrap gap-3">
+          <a
+            href="https://sentinel-ph.streamlit.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-5 py-2.5 bg-accent text-background font-mono text-sm font-medium rounded-sm hover:bg-accent/90 transition-colors"
+          >
+            Live Demo
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <path d="M7 17L17 7M17 7H7M17 7v10"/>
+            </svg>
+          </a>
+          <a
+            href="https://github.com/aces-14/sentinel-ph"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-5 py-2.5 border border-border text-text-muted font-mono text-sm rounded-sm hover:border-accent/40 hover:text-accent transition-all"
+          >
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.341-3.369-1.341-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.607.069-.607 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.087.636-1.337-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.934.359.309.678.919.678 1.852 0 1.337-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.138 20.161 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+            </svg>
+            GitHub
+          </a>
+          <a
+            href="/#projects"
+            class="inline-flex items-center gap-2 px-5 py-2.5 border border-border text-text-muted font-mono text-sm rounded-sm hover:border-accent/40 hover:text-accent transition-all"
+          >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            All Projects
+          </a>
+        </div>
+        <p class="text-text-muted/50 font-mono text-xs mt-6 leading-relaxed">
+          Data from OpenDengue, Open-Meteo, GDELT, and Google Trends is open data.<br/>
+          SentinelPH is not affiliated with DOH Philippines or WHO.
+        </p>
+      </div>
+
+    </article>
+  </div>
+
+  <style>
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    code {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.8em;
+      background: rgba(0, 217, 255, 0.07);
+      border: 1px solid rgba(0, 217, 255, 0.15);
+      border-radius: 3px;
+      padding: 0.1em 0.4em;
+      color: #00D9FF;
+    }
+  </style>
+</BaseLayout>

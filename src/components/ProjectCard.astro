@@ -184,6 +184,36 @@ const illustrations: Record<string, string> = {
       <text x="206" y="66" font-family="monospace" font-size="6" fill="#00D9FF" opacity="0.38">93.96%</text>
     </svg>`,
 
+  sentinelph: `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 78" fill="none" preserveAspectRatio="xMidYMid meet" style="width:100%;height:100%">
+      <radialGradient id="ph-glow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#00D9FF" stop-opacity="0.12"/>
+        <stop offset="100%" stop-color="#00D9FF" stop-opacity="0"/>
+      </radialGradient>
+      <circle cx="72" cy="34" r="22" fill="url(#ph-glow)"/>
+      <line x1="12" y1="10" x2="12" y2="58" stroke="#00D9FF" stroke-width="0.9" opacity="0.38"/>
+      <line x1="12" y1="58" x2="130" y2="58" stroke="#00D9FF" stroke-width="0.9" opacity="0.38"/>
+      <path d="M12 52 C20 48 26 40 36 32 C46 24 50 46 60 40 C68 35 70 48 76 26 C82 14 86 46 96 38 C106 30 110 48 122 42 C126 40 128 46 130 42" stroke="#00D9FF" stroke-width="1.5" opacity="0.70" fill="none"/>
+      <path d="M12 52 C20 48 26 40 36 32 C46 24 50 46 60 40 C68 35 70 48 76 26 C82 14 86 46 96 38 C106 30 110 48 122 42 C126 40 128 46 130 42 L130 58 L12 58 Z" fill="#00D9FF" fill-opacity="0.06"/>
+      <circle cx="76" cy="26" r="5" stroke="#00D9FF" stroke-width="1" stroke-dasharray="2 1.5" opacity="0.55"/>
+      <circle cx="76" cy="26" r="2" fill="#00D9FF" opacity="0.85"/>
+      <line x1="138" y1="6" x2="138" y2="70" stroke="#00D9FF" stroke-width="0.5" stroke-dasharray="3 3" opacity="0.2"/>
+      <rect x="144" y="8" width="128" height="54" rx="3" stroke="#00D9FF" stroke-width="1.5" opacity="0.5"/>
+      <text x="150" y="19" font-family="monospace" font-size="6" fill="#00D9FF" opacity="0.5">RISK MONITOR</text>
+      <line x1="144" y1="22" x2="272" y2="22" stroke="#00D9FF" stroke-width="0.5" opacity="0.2"/>
+      <text x="150" y="32" font-family="monospace" font-size="6.5" fill="#00D9FF" opacity="0.42">HIGH</text>
+      <rect x="178" y="24" width="86" height="9" rx="2" fill="#00D9FF" fill-opacity="0.05" stroke="#00D9FF" stroke-width="0.6" opacity="0.28"/>
+      <rect x="178" y="24" width="26" height="9" rx="2" fill="#00D9FF" fill-opacity="0.22"/>
+      <text x="150" y="45" font-family="monospace" font-size="6.5" fill="#00D9FF" opacity="0.55">MOD</text>
+      <rect x="178" y="37" width="86" height="9" rx="2" fill="#00D9FF" fill-opacity="0.05" stroke="#00D9FF" stroke-width="0.6" opacity="0.28"/>
+      <rect x="178" y="37" width="60" height="9" rx="2" fill="#00D9FF" fill-opacity="0.38"/>
+      <text x="150" y="58" font-family="monospace" font-size="6.5" fill="#00D9FF" opacity="0.38">LOW</text>
+      <rect x="178" y="50" width="86" height="9" rx="2" fill="#00D9FF" fill-opacity="0.05" stroke="#00D9FF" stroke-width="0.6" opacity="0.28"/>
+      <rect x="178" y="50" width="10" height="9" rx="2" fill="#00D9FF" fill-opacity="0.12"/>
+      <text x="14" y="71" font-family="monospace" font-size="6" fill="#00D9FF" opacity="0.42">CASE TREND 2012–2023</text>
+      <text x="146" y="71" font-family="monospace" font-size="6" fill="#00D9FF" opacity="0.42">SENTINELPH</text>
+    </svg>`,
+
   'classical-ml': `
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 78" fill="none" preserveAspectRatio="xMidYMid meet" style="width:100%;height:100%">
       <!-- LEFT: Bar chart -->
@@ -236,17 +266,18 @@ const illustrations: Record<string, string> = {
     </svg>`,
 };
 
-const illustration = illustrations[project.category] ?? '';
+const illustration = illustrations[project.slug] ?? illustrations[project.category] ?? '';
 ---
 
 <article
   data-category={project.category}
-  data-modal-target={`modal-${project.slug}`}
+  data-modal-target={project.blogUrl ? undefined : `modal-${project.slug}`}
+  data-blog-url={project.blogUrl}
   class="project-card group relative bg-surface border border-border rounded-lg overflow-hidden transition-all duration-300 hover:-translate-y-1 flex flex-col cursor-pointer"
   role="button"
   tabindex="0"
-  aria-haspopup="dialog"
-  aria-label={`View details for ${project.title}`}
+  aria-haspopup={project.blogUrl ? undefined : 'dialog'}
+  aria-label={project.blogUrl ? `Read case study for ${project.title}` : `View details for ${project.title}`}
 >
   <!-- Thumbnail -->
   <div class="relative h-36 overflow-hidden shrink-0">
@@ -344,6 +375,35 @@ const illustration = illustrations[project.category] ?? '';
             <line x1="16" y1="17" x2="8" y2="17"/>
           </svg>
           <span class="text-[0.65rem] font-mono">API Docs</span>
+        </a>
+      )}
+      {project.links.demo && (
+        <a
+          href={project.links.demo}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${project.title} live demo`}
+          title="Live Demo"
+          class="icon-btn"
+        >
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+            <polyline points="15,3 21,3 21,9"/>
+            <line x1="10" y1="14" x2="21" y2="3"/>
+          </svg>
+          <span class="text-[0.65rem] font-mono">Demo</span>
+        </a>
+      )}
+      {project.blogUrl && (
+        <a
+          href={project.blogUrl}
+          aria-label={`Read case study for ${project.title}`}
+          class="ml-auto inline-flex items-center gap-1.5 px-3 py-1.5 border border-accent/30 rounded text-accent text-[0.65rem] font-mono hover:bg-accent/5 transition-colors"
+        >
+          Case Study
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M7 17L17 7M17 7H7M17 7v10"/>
+          </svg>
         </a>
       )}
     </div>
