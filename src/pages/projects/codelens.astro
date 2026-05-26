@@ -1,0 +1,475 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const stats = [
+  { value: '1', label: 'API call for full tree', sub: 'GitHub recursive tree endpoint' },
+  { value: 'k=5', label: 'chunks retrieved per query', sub: 'top-k semantic similarity' },
+  { value: '4', label: 'UI redesigns', sub: 'v1 → v2 → v3 → v4' },
+  { value: '3', label: 'deployment crashes', sub: 'before first clean launch' },
+  { value: '1', label: 'full pipeline rewrite', sub: 'courtesy of LangChain 1.3.1' },
+  { value: '2×', label: 'LangChain import hell', sub: 'SentinelPH wasn\'t enough' },
+];
+---
+
+<BaseLayout
+  title="CodeLens — Case Study | Reynald Ace Pilpil"
+  description="How I built a RAG tool that lets you chat with any GitHub repo — the architecture decisions, the engineering tradeoffs, and the chaos that came with it."
+>
+  <div class="min-h-screen bg-background">
+
+    <!-- Sticky top bar -->
+    <div class="sticky top-0 z-10 bg-background/92 backdrop-blur-sm border-b border-border">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-4">
+        <a
+          href="/#projects"
+          class="inline-flex items-center gap-2 text-text-muted hover:text-accent font-mono text-xs transition-colors shrink-0"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Back to Portfolio
+        </a>
+        <div class="flex items-center gap-2 shrink-0">
+          <a
+            href="https://acepilpil-codelens.hf.space"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-text-muted hover:text-accent font-mono text-xs border border-border hover:border-accent/40 px-3 py-1.5 rounded-sm transition-all"
+          >
+            Live Demo ↗
+          </a>
+          <a
+            href="https://github.com/aces-14/CodeLens.git"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-text-muted hover:text-accent font-mono text-xs border border-border hover:border-accent/40 px-3 py-1.5 rounded-sm transition-all"
+          >
+            GitHub ↗
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <article class="max-w-3xl mx-auto px-4 sm:px-6 pb-24">
+
+      <!-- ── HEADER ── -->
+      <header class="pt-14 pb-12 border-b border-border mb-14">
+        <div class="flex flex-wrap items-center gap-x-3 gap-y-2 mb-8">
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-accent/10 border border-accent/30 text-accent font-mono text-xs rounded-sm">
+            <span class="w-1.5 h-1.5 rounded-full bg-accent" style="animation: pulse 2s cubic-bezier(0.4,0,0.6,1) infinite;"></span>
+            LIVE
+          </span>
+          <span class="text-text-muted font-mono text-xs">Hugging Face Spaces</span>
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl font-bold text-text-primary mb-3 tracking-tight">
+          CodeLens
+        </h1>
+        <p class="text-xl text-text-muted font-light mb-5 leading-snug">
+          Chat with Any GitHub Repository
+        </p>
+        <p class="text-text-muted leading-relaxed max-w-2xl mb-8">
+          Clone any public GitHub repo, ask it questions in plain English, get answers with
+          file-level citations — so you always know exactly where to look. A RAG pipeline
+          built for codebases, because reading a new repo cold is genuinely miserable.
+        </p>
+
+        <div class="flex flex-wrap gap-2 mb-8">
+          {['Python', 'LangChain', 'ChromaDB', 'Groq API', 'sentence-transformers', 'GitHub API', 'Gradio'].map((t) => (
+            <span class="px-2.5 py-1 bg-surface border border-border text-text-muted text-xs font-mono rounded-sm">
+              {t}
+            </span>
+          ))}
+        </div>
+
+        <div class="flex flex-wrap gap-3">
+          <a
+            href="https://acepilpil-codelens.hf.space"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-5 py-2.5 bg-accent text-background font-mono text-sm font-medium rounded-sm hover:bg-accent/90 transition-colors"
+          >
+            Live Demo
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <path d="M7 17L17 7M17 7H7M17 7v10"/>
+            </svg>
+          </a>
+          <a
+            href="https://github.com/aces-14/CodeLens.git"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-5 py-2.5 border border-border text-text-muted font-mono text-sm rounded-sm hover:border-accent/40 hover:text-accent transition-all"
+          >
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.341-3.369-1.341-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.607.069-.607 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.087.636-1.337-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.934.359.309.678.919.678 1.852 0 1.337-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.138 20.161 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+            </svg>
+            GitHub
+          </a>
+        </div>
+      </header>
+
+      <!-- ── CONTENT ── -->
+      <div class="space-y-14 text-text-muted leading-relaxed">
+
+        <!-- ORIGIN STORY -->
+        <section>
+          <p class="text-xs font-mono text-accent uppercase tracking-[0.2em] mb-2">Where this started</p>
+          <div class="w-10 h-px bg-accent mb-6"></div>
+
+          <p class="mb-4">
+            I wanted to build tools that help people. Genuinely noble intention. So I sat down,
+            thought very hard about what problems people have, and ran through a mental list of
+            big ideas: healthcare, education, climate, finance—
+          </p>
+          <p class="mb-4">
+            Then it hit me. <em class="text-text-primary not-italic">I'm people.</em> And I have a
+            problem that comes up every single time I pick up a new codebase. I spend the first hour
+            doing nothing but grep-ing around, opening random files, trying to figure out where
+            things live. "Where's the auth logic?" "How does data get from the API to the database?"
+            "What does this file even do?"
+          </p>
+          <p class="mb-4">
+            What if you could just... <em class="text-text-primary not-italic">ask it?</em>
+          </p>
+          <p>
+            That was CodeLens. Clone any public GitHub repo, index all the code into a vector
+            database, and chat with it in plain English. Get answers with file-level citations so
+            you always know exactly where to look next. The RAG pipeline for codebases. Simple idea,
+            real problem, let's build it.
+          </p>
+        </section>
+
+        <!-- PHASE 1 & 2: INGESTION -->
+        <section>
+          <div class="flex items-center gap-3 mb-1">
+            <span class="text-xs font-mono text-accent/60 uppercase tracking-wider">Phase 1 & 2</span>
+          </div>
+          <h2 class="text-lg font-semibold text-text-primary mb-5">Ingestion — getting the right code into the right chunks</h2>
+
+          <p class="mb-4">
+            The first design question: how do you get a repo's contents without making 400 API calls?
+            GitHub's Tree API has a recursive mode — one request, full file tree, every path in the
+            repo. No directory traversal loop, no pagination. That's what I used.
+          </p>
+          <p class="mb-4">
+            Then the filtering question: not everything in a repo belongs in a code index. Binary
+            files, lock files, build artifacts, <code>node_modules</code> — if someone asks "where
+            is auth handled," they don't want matches from <code>package-lock.json</code>. The
+            ingestion pipeline filters by extension (Python, JS, TS, Go, Rust, Markdown, and a
+            handful of others) and skips directories like <code>dist</code>, <code>.git</code>,
+            <code>build</code>, and <code>__pycache__</code>. Only source code and documentation go
+            into the index.
+          </p>
+          <p class="mb-4">
+            Then chunking. LangChain's <code>RecursiveCharacterTextSplitter</code> has a
+            language-aware mode that splits code along meaningful boundaries — for Python, it
+            prefers to break on class and function definitions; for JavaScript, on function and
+            arrow function blocks. This matters: a chunk that cuts through the middle of a function
+            is much harder for the retrieval model to interpret than one that contains a complete
+            unit. Raw character-count splitting doesn't know what a function boundary is. The
+            language-aware version does.
+          </p>
+          <p class="mb-4">
+            Jupyter notebooks needed special handling. Raw <code>.ipynb</code> files are JSON blobs
+            containing code cells, markdown cells, output cells, error tracebacks, and embedded
+            images — most of which are noise for a code search index. The pipeline pre-processes
+            notebooks by stripping output cells and keeping only code and markdown, then treats the
+            result like any other source file.
+          </p>
+          <p>
+            Two small snags: <code>Language.SQL</code> wasn't in LangChain's <code>Language</code>
+            enum, so SQL files fell back to plain text splitting — fine. And I managed to call a
+            method named <code>_assert_ready()</code> before the line that actually defined it.
+            Got an <code>AttributeError</code>, moved the definition above the call, moved on.
+          </p>
+        </section>
+
+        <!-- PHASE 3: RAG STACK -->
+        <section>
+          <div class="flex items-center gap-3 mb-1">
+            <span class="text-xs font-mono text-accent/60 uppercase tracking-wider">Phase 3</span>
+          </div>
+          <h2 class="text-lg font-semibold text-text-primary mb-5">The RAG stack — tool choices and the reasoning behind them</h2>
+
+          <p class="mb-4">
+            Three decisions to make before any retrieval could happen: vector store, embedding
+            model, and retrieval strategy.
+          </p>
+          <p class="mb-4">
+            <strong class="text-text-primary font-medium">ChromaDB</strong> for the vector store.
+            It runs in-process — no server to spin up, no Docker, no config. Persistence is just
+            a local directory. For a developer tool where session latency matters, having the store
+            embed directly into the app process is a real advantage. It's also fast enough for
+            repo-sized datasets (tens of thousands of chunks at most).
+          </p>
+          <p class="mb-4">
+            <strong class="text-text-primary font-medium">sentence-transformers</strong>
+            (<code>all-MiniLM-L6-v2</code>) for embeddings. It's small, runs on CPU, and loads in
+            under a second. A larger model would improve retrieval precision but would triple the
+            cold-start time on Hugging Face Spaces' free tier. For a tool where the first user
+            action is "paste a GitHub URL and wait," that tradeoff matters. Smaller and fast was
+            the right call here.
+          </p>
+          <p class="mb-4">
+            <strong class="text-text-primary font-medium">Top-k retrieval (k=5)</strong>. Each
+            query pulls the 5 most semantically similar chunks. Every chunk carries metadata: file
+            path, chunk index, and a line-range estimate. The generation prompt instructs the LLM
+            to reference those file paths explicitly in its answer — that's the citation mechanism.
+            There's no post-processing magic: the model is told what files it's reading from, and
+            it includes those in its response. Simple, but it works.
+          </p>
+          <p class="mb-4">
+            <strong class="text-text-primary font-medium">Groq + Llama 3.3 70B</strong> for
+            generation. Low latency at the inference layer matters here — users are already waiting
+            for the repo to index. Adding a slow generation step on top would make the whole tool
+            feel sluggish. Groq's inference is fast enough that answers arrive in under two seconds
+            after retrieval.
+          </p>
+          <p>
+            Predictably: <code>HuggingFaceEmbeddings</code> had moved — again — from
+            <code>langchain_community</code> to <code>langchain_huggingface</code>. I hit this
+            exact ImportError on SentinelPH. I hit it again here. At some point I'll check the
+            migration docs first. That point was not this project.
+          </p>
+        </section>
+
+        <!-- PHASE 4: CONVERSATIONAL LAYER -->
+        <section>
+          <div class="flex items-center gap-3 mb-1">
+            <span class="text-xs font-mono text-accent/60 uppercase tracking-wider">Phase 4</span>
+          </div>
+          <h2 class="text-lg font-semibold text-text-primary mb-5">Conversational layer — and the LangChain incident</h2>
+
+          <p class="mb-4">
+            Single-turn Q&A wasn't enough. Real codebase exploration is conversational: you ask
+            "where is auth handled?", get an answer, then follow up with "what calls that function?"
+            or "are there tests for this?" Those follow-up questions depend on context from the
+            previous turn — without it, every question retrieves against the raw query text alone
+            and loses the thread.
+          </p>
+          <p class="mb-4">
+            The solution: a <code>ConversationalRetrievalChain</code> with
+            <code>ConversationBufferWindowMemory</code>. The pipeline keeps a rolling window of the
+            last few exchanges, condenses the current question plus conversation history into a
+            standalone question, retrieves on that, and generates a grounded answer. Follow-up
+            questions work because the retrieval step has context about what you were already
+            asking about.
+          </p>
+          <p class="mb-4">
+            That pipeline worked. Then I ran <code>pip install langchain</code> to pull in a
+            small utility, and it resolved to
+            <strong class="text-text-primary font-medium">LangChain 1.3.1</strong>.
+          </p>
+          <p class="mb-4">
+            In LangChain 1.x, <code>ConversationalRetrievalChain</code> and
+            <code>ConversationBufferWindowMemory</code> were both removed — not deprecated, not
+            marked legacy, removed. The entire conversational layer was gone.
+          </p>
+          <p>
+            Rewrote it using LCEL: a <code>RunnableWithMessageHistory</code> wrapping a retrieval
+            chain backed by <code>ChatMessageHistory</code>. The LCEL version is actually more
+            readable — every step in the pipeline is explicit instead of buried in inherited
+            method chains. Better architecture. Terrible timing. Pin your dependencies.
+          </p>
+        </section>
+
+        <!-- PHASE 6 UI -->
+        <section>
+          <div class="flex items-center gap-3 mb-1">
+            <span class="text-xs font-mono text-accent/60 uppercase tracking-wider">Phase 6</span>
+          </div>
+          <h2 class="text-lg font-semibold text-text-primary mb-5">UI — four versions to get one right</h2>
+
+          <p class="mb-4">
+            The UX flow had a natural two-step shape: first you give CodeLens a repo, then you
+            chat with it. These are distinct modes — indexing takes time, and the chat interface
+            only makes sense once the index is ready. So the design needed to reflect that:
+            a setup step, then a conversation.
+          </p>
+          <p class="mb-4">
+            <strong class="text-text-primary font-medium">v1</strong> put both steps side by side
+            — repo input on the left, chat on the right. Functional. I hated looking at it.
+            It treated indexing as a background detail instead of a deliberate first step. Back
+            to the drawing board.
+          </p>
+          <p class="mb-4">
+            <strong class="text-text-primary font-medium">v2</strong> introduced a proper two-stage
+            flow: a landing page where you enter the repo URL, then a full-screen chat interface
+            that appears once indexing completes. Better concept. Several implementation problems.
+          </p>
+          <p class="mb-4">
+            The action buttons were orange. Bright, saturated, Gradio-default orange. I added CSS
+            to override the color. The buttons stayed orange. Gradio's <code>variant="primary"</code>
+            sets inline styles that override any external CSS. Fix: remove the <code>variant</code>
+            parameter and style the buttons from scratch without triggering Gradio's defaults.
+          </p>
+          <p class="mb-4">
+            The landing page stretched edge-to-edge on wide screens. Fixed by wrapping the content
+            in a 3-column <code>gr.Row()</code> with scale ratios <code>1:2:1</code> — the outer
+            columns act as gutters, the center holds the content at a readable width.
+          </p>
+          <p class="mb-4">
+            The page went completely black on load. No error, no traceback. After a while I found
+            it: <code>show_progress=True</code> was rendering a full-screen loading overlay before
+            the UI had appeared. Changed to <code>show_progress=False</code>. Visible again.
+          </p>
+          <p>
+            <strong class="text-text-primary font-medium">v3</strong> and
+            <strong class="text-text-primary font-medium">v4</strong> were incremental — refining
+            the chat layout, improving how citations surface in the response, tightening spacing.
+            By v4 it felt right. That's what's live.
+          </p>
+        </section>
+
+        <!-- PHASE 8 DEPLOYMENT -->
+        <section>
+          <div class="flex items-center gap-3 mb-1">
+            <span class="text-xs font-mono text-accent/60 uppercase tracking-wider">Phase 8</span>
+          </div>
+          <h2 class="text-lg font-semibold text-text-primary mb-5">Deployment — three crashes, one launch</h2>
+
+          <p class="mb-4">
+            Pushed to Hugging Face Spaces. It crashed three times before staying up.
+          </p>
+          <p class="mb-4">
+            <strong class="text-text-primary font-medium">Crash 1:</strong> The <code>README.md</code>
+            metadata had <code>colorFrom: cyan</code>. Cyan is not a valid Hugging Face Space color.
+            Changed to <code>blue</code>. Accepted without complaint.
+          </p>
+          <p class="mb-4">
+            <strong class="text-text-primary font-medium">Crash 2:</strong> <code>requirements.txt</code>
+            pinned <code>gradio==5.29.1</code>, but Hugging Face Spaces ships with its own Gradio
+            (6.14.0). Version conflict, the Space won't start. Fix: remove <code>gradio</code> from
+            requirements entirely and let the platform manage it. Any Gradio Space should do this.
+          </p>
+          <p class="mb-4">
+            <strong class="text-text-primary font-medium">Crash 3:</strong> <code>AttributeError:
+            Language has no attribute 'R'</code> — on startup, before any user interaction. The
+            Spaces environment had a different LangChain version than my local, and
+            <code>Language.R</code> didn't exist in it. Fixed with a <code>hasattr(Language, attr)</code>
+            guard: if the language isn't in the installed version, skip it and fall back to plain
+            text splitting.
+          </p>
+          <p>
+            After crash 3, the Space stayed up. The lesson: the Hugging Face Spaces runtime is
+            not the same as your local environment, and anything that touches LangChain enums or
+            pinned library versions will find that out the hard way.
+          </p>
+        </section>
+
+        <!-- BY THE NUMBERS -->
+        <section>
+          <p class="text-xs font-mono text-accent uppercase tracking-[0.2em] mb-2">By The Numbers</p>
+          <div class="w-10 h-px bg-accent mb-6"></div>
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+            {stats.map(({ value, label, sub }) => (
+              <div class="bg-surface border border-border rounded-lg p-4">
+                <div class="text-2xl font-bold text-accent font-mono mb-1">{value}</div>
+                <div class="text-text-primary text-sm font-medium">{label}</div>
+                <div class="text-text-muted text-xs font-mono mt-0.5">{sub}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <!-- WHAT I'D DO DIFFERENTLY -->
+        <section>
+          <p class="text-xs font-mono text-accent uppercase tracking-[0.2em] mb-2">What I'd do differently</p>
+          <div class="w-10 h-px bg-accent mb-6"></div>
+          <ul class="space-y-3">
+            {[
+              'Pin every dependency to an exact version from day one, especially LangChain. "Latest" is a gamble when you\'re mid-build and the library ships breaking changes without major version bumps.',
+              'Check the Hugging Face Spaces runtime environment before writing environment-specific code. The installed LangChain version, the Gradio version, available system packages — all differ from local.',
+              'Design with the two-step flow from the start. v1 was a placeholder I knew wouldn\'t survive, and it wasted a session.',
+              'Add a hasattr guard for every LangChain enum from the beginning — Language, VectorStoreType, anything the platform might ship a different version of.',
+              'Swap in a larger embedding model behind a loading screen. all-MiniLM is fast but the retrieval quality shows its limits on deeply technical questions. The UX cost of a 5-second load is lower than the cost of poor answers.',
+            ].map((item) => (
+              <li class="flex items-start gap-3 text-sm">
+                <span class="shrink-0 font-mono text-accent text-xs mt-0.5">→</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <!-- WHAT'S NEXT -->
+        <section>
+          <p class="text-xs font-mono text-accent uppercase tracking-[0.2em] mb-2">What's next</p>
+          <div class="w-10 h-px bg-accent mb-6"></div>
+          <ul class="space-y-3">
+            {[
+              'Private repo support via GitHub OAuth — right now it\'s public repos only.',
+              'Persistent vector stores: re-indexing on every session is the biggest UX bottleneck. Caching indexed repos by commit SHA would eliminate the wait on repeat visits.',
+              'Code-graph retrieval: instead of pure semantic similarity, use the AST to understand call graphs and import relationships. "What calls this function?" should retrieve based on structure, not just text similarity.',
+              'A repo map panel alongside the chat — a tree view of the indexed structure so you can navigate the codebase visually while you ask questions.',
+            ].map((item) => (
+              <li class="flex items-start gap-3 text-sm">
+                <span class="shrink-0 font-mono text-accent text-xs mt-0.5">→</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </section>
+
+      </div>
+
+      <!-- ── FOOTER CTA ── -->
+      <div class="border-t border-border mt-14 pt-12">
+        <div class="flex flex-wrap gap-3">
+          <a
+            href="https://acepilpil-codelens.hf.space"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-5 py-2.5 bg-accent text-background font-mono text-sm font-medium rounded-sm hover:bg-accent/90 transition-colors"
+          >
+            Live Demo
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <path d="M7 17L17 7M17 7H7M17 7v10"/>
+            </svg>
+          </a>
+          <a
+            href="https://github.com/aces-14/CodeLens.git"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-5 py-2.5 border border-border text-text-muted font-mono text-sm rounded-sm hover:border-accent/40 hover:text-accent transition-all"
+          >
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.341-3.369-1.341-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.607.069-.607 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.087.636-1.337-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.934.359.309.678.919.678 1.852 0 1.337-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.138 20.161 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+            </svg>
+            GitHub
+          </a>
+          <a
+            href="/#projects"
+            class="inline-flex items-center gap-2 px-5 py-2.5 border border-border text-text-muted font-mono text-sm rounded-sm hover:border-accent/40 hover:text-accent transition-all"
+          >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            All Projects
+          </a>
+        </div>
+        <p class="text-text-muted/50 font-mono text-xs mt-6 leading-relaxed">
+          CodeLens clones public repositories for indexing purposes only.<br/>
+          No code is stored beyond your session.
+        </p>
+      </div>
+
+    </article>
+  </div>
+
+  <style>
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    code {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.8em;
+      background: rgba(0, 217, 255, 0.07);
+      border: 1px solid rgba(0, 217, 255, 0.15);
+      border-radius: 3px;
+      padding: 0.1em 0.4em;
+      color: #00D9FF;
+    }
+  </style>
+</BaseLayout>
