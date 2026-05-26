@@ -3,6 +3,7 @@ import '@fontsource-variable/inter';
 import '@fontsource/jetbrains-mono/400.css';
 import '@fontsource/jetbrains-mono/500.css';
 import Analytics from '@vercel/analytics/astro';
+import { ViewTransitions } from 'astro:transitions';
 
 interface Props {
   title?: string;
@@ -41,6 +42,26 @@ const canonicalURL = 'https://reynaldace-portfolio.vercel.app';
     <meta name="twitter:image" content={`${canonicalURL}/og-image.png`} />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <ViewTransitions />
+
+    <style>
+      @keyframes fadeSlideIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes fadeSlideOut {
+        from { opacity: 1; transform: translateY(0); }
+        to   { opacity: 0; transform: translateY(-8px); }
+      }
+
+      ::view-transition-old(root) {
+        animation: fadeSlideOut 0.18s ease-in forwards;
+      }
+      ::view-transition-new(root) {
+        animation: fadeSlideIn 0.22s ease-out forwards;
+      }
+    </style>
   </head>
   <body class="bg-background text-text-primary antialiased">
     <slot />
@@ -48,17 +69,22 @@ const canonicalURL = 'https://reynaldace-portfolio.vercel.app';
     <Analytics />
 
     <script>
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('visible');
-            }
-          });
-        },
-        { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
-      );
-      document.querySelectorAll('.animate-on-scroll').forEach((el) => observer.observe(el));
+      function initScrollObserver() {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+              }
+            });
+          },
+          { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+        );
+        document.querySelectorAll('.animate-on-scroll').forEach((el) => observer.observe(el));
+      }
+
+      initScrollObserver();
+      document.addEventListener('astro:page-load', initScrollObserver);
     </script>
   </body>
 </html>

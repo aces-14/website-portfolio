@@ -212,18 +212,6 @@ const categoryLabel: Record<string, string> = {
     });
   });
 
-  // Blog project card → navigate to case study page
-  document.querySelectorAll<HTMLElement>('[data-blog-url]').forEach((card) => {
-    const navigate = (e: Event) => {
-      if ((e.target as Element).closest('a')) return;
-      window.location.href = card.dataset.blogUrl!;
-    };
-    card.addEventListener('click', navigate);
-    card.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); navigate(e); }
-    });
-  });
-
   // Close on backdrop click
   document.querySelectorAll<HTMLDialogElement>('.project-modal').forEach((modal) => {
     modal.addEventListener('click', (e) => {

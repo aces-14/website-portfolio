@@ -33,6 +33,21 @@ export const projects: Project[] = [
     },
   },
   {
+    slug: 'codelens',
+    title: 'CodeLens — Chat with Any GitHub Repo',
+    subtitle: 'RAG Tool for Codebase Exploration',
+    description:
+      'Clone any public GitHub repo and ask it questions in plain English. CodeLens indexes the entire codebase into a vector database, retrieves the most relevant code chunks, and generates answers with file-level citations — so you always know exactly where the answer came from. Built because reading a new codebase cold is miserable.',
+    highlight: 'file-level citations',
+    tech: ['Python', 'LangChain', 'ChromaDB', 'Groq (Llama 3.3 70B)', 'sentence-transformers', 'GitHub API', 'Gradio'],
+    category: 'rag',
+    blogUrl: '/projects/codelens',
+    links: {
+      huggingface: 'https://acepilpil-codelens.hf.space',
+      github: 'https://github.com/aces-14/CodeLens.git',
+    },
+  },
+  {
     slug: 'market-intelligence-agent',
     title: 'Market Intelligence Agent',
     subtitle: 'Stateful Multi-Agent System with Self-Revision',

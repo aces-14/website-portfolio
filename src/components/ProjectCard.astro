@@ -184,6 +184,66 @@ const illustrations: Record<string, string> = {
       <text x="206" y="66" font-family="monospace" font-size="6" fill="#00D9FF" opacity="0.38">93.96%</text>
     </svg>`,
 
+  codelens: `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 78" fill="none" preserveAspectRatio="xMidYMid meet" style="width:100%;height:100%">
+      <radialGradient id="cl-glow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#00D9FF" stop-opacity="0.1"/>
+        <stop offset="100%" stop-color="#00D9FF" stop-opacity="0"/>
+      </radialGradient>
+
+      <!-- Code file on left -->
+      <rect x="8" y="8" width="52" height="60" rx="3" stroke="#00D9FF" stroke-width="1.5" opacity="0.5"/>
+      <!-- Dog-ear corner -->
+      <path d="M48 8 L60 20 L48 20 Z" stroke="#00D9FF" stroke-width="1" opacity="0.4" fill="#0A0A0F"/>
+      <line x1="48" y1="8" x2="60" y2="20" stroke="#00D9FF" stroke-width="1" opacity="0.38"/>
+      <!-- Code lines: keyword + identifier pattern -->
+      <line x1="15" y1="26" x2="26" y2="26" stroke="#00D9FF" stroke-width="1.5" opacity="0.6"/>
+      <line x1="28" y1="26" x2="50" y2="26" stroke="#00D9FF" stroke-width="0.8" opacity="0.3"/>
+      <line x1="18" y1="33" x2="38" y2="33" stroke="#00D9FF" stroke-width="0.8" opacity="0.35"/>
+      <line x1="40" y1="33" x2="52" y2="33" stroke="#00D9FF" stroke-width="1.2" opacity="0.5"/>
+      <line x1="18" y1="40" x2="44" y2="40" stroke="#00D9FF" stroke-width="0.8" opacity="0.28"/>
+      <line x1="18" y1="47" x2="30" y2="47" stroke="#00D9FF" stroke-width="1.4" opacity="0.55"/>
+      <line x1="32" y1="47" x2="50" y2="47" stroke="#00D9FF" stroke-width="0.8" opacity="0.25"/>
+      <line x1="18" y1="54" x2="42" y2="54" stroke="#00D9FF" stroke-width="0.8" opacity="0.22"/>
+
+      <!-- Arrow 1 -->
+      <line x1="64" y1="38" x2="84" y2="38" stroke="#00D9FF" stroke-width="1" opacity="0.45"/>
+      <polyline points="80,34 84,38 80,42" stroke="#00D9FF" stroke-width="1" opacity="0.45"/>
+
+      <!-- Vector cluster (middle) -->
+      <circle cx="118" cy="38" r="24" fill="url(#cl-glow)"/>
+      <circle cx="106" cy="28" r="3.5" fill="#00D9FF" opacity="0.55"/>
+      <circle cx="120" cy="22" r="2.5" fill="#00D9FF" opacity="0.4"/>
+      <circle cx="130" cy="32" r="3" fill="#00D9FF" opacity="0.58"/>
+      <circle cx="104" cy="42" r="2.5" fill="#00D9FF" opacity="0.45"/>
+      <circle cx="116" cy="50" r="3.5" fill="#00D9FF" opacity="0.52"/>
+      <circle cx="128" cy="46" r="2" fill="#00D9FF" opacity="0.38"/>
+      <circle cx="112" cy="36" r="2" fill="#00D9FF" opacity="0.48"/>
+      <circle cx="124" cy="38" r="2.5" fill="#00D9FF" opacity="0.42"/>
+      <!-- Retrieval ring around closest chunk -->
+      <circle cx="130" cy="32" r="9" stroke="#00D9FF" stroke-width="0.8" stroke-dasharray="3 2" opacity="0.4"/>
+
+      <!-- Arrow 2 -->
+      <line x1="148" y1="38" x2="166" y2="38" stroke="#00D9FF" stroke-width="1" opacity="0.45"/>
+      <polyline points="162,34 166,38 162,42" stroke="#00D9FF" stroke-width="1" opacity="0.45"/>
+
+      <!-- Chat bubble on right -->
+      <rect x="170" y="12" width="102" height="44" rx="4" stroke="#00D9FF" stroke-width="1.5" opacity="0.52"/>
+      <path d="M184 56 L178 64 L192 56" fill="#0F0F1A" stroke="#00D9FF" stroke-width="1.2" opacity="0.45"/>
+      <!-- Answer text lines -->
+      <line x1="178" y1="24" x2="264" y2="24" stroke="#00D9FF" stroke-width="0.8" opacity="0.35"/>
+      <line x1="178" y1="32" x2="258" y2="32" stroke="#00D9FF" stroke-width="0.8" opacity="0.32"/>
+      <!-- Citation line (highlighted) -->
+      <rect x="178" y="40" width="72" height="8" rx="2" fill="#00D9FF" fill-opacity="0.08"/>
+      <line x1="178" y1="44" x2="248" y2="44" stroke="#00D9FF" stroke-width="0.8" opacity="0.5"/>
+      <text x="250" y="46" font-family="monospace" font-size="5.5" fill="#00D9FF" opacity="0.55">↗</text>
+
+      <!-- Labels -->
+      <text x="12" y="74" font-family="monospace" font-size="6" fill="#00D9FF" opacity="0.42">CODEBASE</text>
+      <text x="100" y="74" font-family="monospace" font-size="6" fill="#00D9FF" opacity="0.42">VECTORS</text>
+      <text x="186" y="74" font-family="monospace" font-size="6" fill="#00D9FF" opacity="0.42">CITED ANSWER</text>
+    </svg>`,
+
   sentinelph: `
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 78" fill="none" preserveAspectRatio="xMidYMid meet" style="width:100%;height:100%">
       <radialGradient id="ph-glow" cx="50%" cy="50%" r="50%">
@@ -274,11 +334,20 @@ const illustration = illustrations[project.slug] ?? illustrations[project.catego
   data-modal-target={project.blogUrl ? undefined : `modal-${project.slug}`}
   data-blog-url={project.blogUrl}
   class="project-card group relative bg-surface border border-border rounded-lg overflow-hidden transition-all duration-300 hover:-translate-y-1 flex flex-col cursor-pointer"
-  role="button"
-  tabindex="0"
+  role={project.blogUrl ? undefined : 'button'}
+  tabindex={project.blogUrl ? undefined : 0}
   aria-haspopup={project.blogUrl ? undefined : 'dialog'}
-  aria-label={project.blogUrl ? `Read case study for ${project.title}` : `View details for ${project.title}`}
+  aria-label={project.blogUrl ? undefined : `View details for ${project.title}`}
 >
+  {project.blogUrl && (
+    <a
+      href={project.blogUrl}
+      class="absolute inset-0 z-[1]"
+      tabindex="-1"
+      aria-hidden="true"
+    />
+  )}
+
   <!-- Thumbnail -->
   <div class="relative h-36 overflow-hidden shrink-0">
     <div class="thumb-bg absolute inset-0"></div>
@@ -310,7 +379,7 @@ const illustration = illustrations[project.slug] ?? illustrations[project.catego
     </div>
 
     <!-- Link buttons -->
-    <div class="flex items-center gap-2 mt-auto pt-1">
+    <div class="flex items-center gap-2 mt-auto pt-1 relative z-[2]">
       {project.links.huggingface && (
         <a
           href={project.links.huggingface}
