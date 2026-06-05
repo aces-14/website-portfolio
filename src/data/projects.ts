@@ -18,6 +18,21 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    slug: 'hiremaph',
+    title: 'HireMap PH — Job Market Intelligence',
+    subtitle: 'Full-Stack Philippine Labor Market Platform',
+    description:
+      'A Philippine job market intelligence platform with a live choropleth heatmap and Skill Gap Analyzer. GitHub Actions scrapes 3 job boards every day at 6AM PHT, commits fresh data, and triggers a Railway auto-redeploy — one Groq call generates the daily AI market summary, cached for every user at zero per-user API cost.',
+    highlight: 'zero per-user API cost',
+    tech: ['Python', 'FastAPI', 'React 19', 'Plotly', 'Groq (Llama 3.1 8B)', 'GitHub Actions', 'Parquet', 'Railway'],
+    category: 'agentic',
+    blogUrl: '/projects/hiremaph',
+    links: {
+      demo: 'https://hire-map-ph.vercel.app/',
+      github: 'https://github.com/aces-14/HireMapPH.git',
+    },
+  },
+  {
     slug: 'sentinelph',
     title: 'SentinelPH — Dengue Risk Monitor',
     subtitle: 'Multi-Agent Public Health Intelligence Platform',

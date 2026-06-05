@@ -1,0 +1,545 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const stats = [
+  { value: '3', label: 'data sources', sub: 'DOLE · JSearch · Kalibrr' },
+  { value: '1', label: 'Groq call per day', sub: 'cached for every user' },
+  { value: '7', label: 'API endpoints', sub: 'FastAPI · always-on Railway' },
+  { value: '5px', label: 'click threshold', sub: 'how we outsmarted Plotly' },
+  { value: '$2', label: 'per month to run', sub: 'within $5 Railway credit' },
+  { value: '0', label: 'per-user API costs', sub: 'pre-computed, always instant' },
+];
+---
+
+<BaseLayout
+  title="HireMap PH — Case Study | Reynald Ace Pilpil"
+  description="How I built a Philippine job market intelligence platform: why I killed the chatbot before building it, how Plotly's geo click events don't work, and what a 5-pixel threshold has to do with any of it."
+>
+  <div class="min-h-screen bg-background">
+
+    <!-- Sticky top bar -->
+    <div class="sticky top-0 z-10 bg-background/92 backdrop-blur-sm border-b border-border">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-4">
+        <a
+          href="/#projects"
+          class="inline-flex items-center gap-2 text-text-muted hover:text-accent font-mono text-xs transition-colors shrink-0"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Back to Portfolio
+        </a>
+        <div class="flex items-center gap-2 shrink-0">
+          <a
+            href="https://hire-map-ph.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-text-muted hover:text-accent font-mono text-xs border border-border hover:border-accent/40 px-3 py-1.5 rounded-sm transition-all"
+          >
+            Live Demo ↗
+          </a>
+          <a
+            href="https://github.com/aces-14/HireMapPH.git"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-text-muted hover:text-accent font-mono text-xs border border-border hover:border-accent/40 px-3 py-1.5 rounded-sm transition-all"
+          >
+            GitHub ↗
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <article class="max-w-3xl mx-auto px-4 sm:px-6 pb-24">
+
+      <!-- ── HEADER ── -->
+      <header class="pt-14 pb-12 border-b border-border mb-14">
+        <div class="flex flex-wrap items-center gap-x-3 gap-y-2 mb-8">
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-accent/10 border border-accent/30 text-accent font-mono text-xs rounded-sm">
+            <span class="w-1.5 h-1.5 rounded-full bg-accent" style="animation: pulse 2s cubic-bezier(0.4,0,0.6,1) infinite;"></span>
+            LIVE
+          </span>
+          <span class="text-text-muted font-mono text-xs">Vercel + Railway</span>
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl font-bold text-text-primary mb-3 tracking-tight">
+          HireMap PH
+        </h1>
+        <p class="text-xl text-text-muted font-light mb-5 leading-snug">
+          Philippine Job Market Intelligence Platform
+        </p>
+        <p class="text-text-muted leading-relaxed max-w-2xl mb-8">
+          A live job market heatmap, Skill Gap Analyzer, and AI-generated market summary —
+          all powered by a GitHub Actions pipeline that scrapes 3 Philippine job boards every
+          day at 6AM PHT, commits fresh data to the repo, and triggers a Railway auto-redeploy.
+          Every user who opens the site gets that morning's data, instantly.
+        </p>
+
+        <div class="flex flex-wrap gap-2 mb-8">
+          {['Python', 'FastAPI', 'React 19', 'Plotly', 'Groq API', 'GitHub Actions', 'Parquet', 'Railway'].map((t) => (
+            <span class="px-2.5 py-1 bg-surface border border-border text-text-muted text-xs font-mono rounded-sm">
+              {t}
+            </span>
+          ))}
+        </div>
+
+        <div class="flex flex-wrap gap-3">
+          <a
+            href="https://hire-map-ph.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-5 py-2.5 bg-accent text-background font-mono text-sm font-medium rounded-sm hover:bg-accent/90 transition-colors"
+          >
+            Live Demo
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <path d="M7 17L17 7M17 7H7M17 7v10"/>
+            </svg>
+          </a>
+          <a
+            href="https://github.com/aces-14/HireMapPH.git"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-5 py-2.5 border border-border text-text-muted font-mono text-sm rounded-sm hover:border-accent/40 hover:text-accent transition-all"
+          >
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.341-3.369-1.341-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.607.069-.607 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.087.636-1.337-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.934.359.309.678.919.678 1.852 0 1.337-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.138 20.161 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+            </svg>
+            GitHub
+          </a>
+        </div>
+      </header>
+
+      <!-- ── CONTENT ── -->
+      <div class="space-y-14 text-text-muted leading-relaxed">
+
+        <!-- ORIGIN -->
+        <section>
+          <p class="text-xs font-mono text-accent uppercase tracking-[0.2em] mb-2">Where this started</p>
+          <div class="w-10 h-px bg-accent mb-6"></div>
+
+          <p class="mb-4">
+            There is genuinely no single place that answers the questions every job seeker in
+            the Philippines has: where are the most jobs for my role right now? What skills do
+            companies actually list in their postings, in my city? Is demand for my field
+            growing or shrinking? I have these skills — what am I missing?
+          </p>
+          <p class="mb-4">
+            JobStreet exists. LinkedIn exists. DOLE's job board exists. None of them aggregate
+            across each other, none of them visualize geographic distribution, and none of them
+            let you compare your own skills against what's actually being asked for in live postings.
+          </p>
+          <p>
+            HireMap PH is the answer to all four questions in one place, updated every morning,
+            for free. That was the goal. The path to getting there involved scrapping the
+            original plan almost immediately, killing a chatbot before it was ever built, and
+            learning that Plotly's click events on geographic charts are basically decorative.
+          </p>
+        </section>
+
+        <!-- ARCHITECTURE -->
+        <section>
+          <div class="flex items-center gap-3 mb-1">
+            <span class="text-xs font-mono text-accent/60 uppercase tracking-wider">Architecture</span>
+          </div>
+          <h2 class="text-lg font-semibold text-text-primary mb-5">Stack decisions — and why each one</h2>
+
+          <p class="mb-4">
+            The architecture had to satisfy one hard constraint: it needed to run automatically
+            every day, serve data instantly on load, and cost close to nothing. Every tool choice
+            flows from that.
+          </p>
+          <p class="mb-4">
+            <strong class="text-text-primary font-medium">Parquet over a database.</strong> Job
+            data is write-once, read-many — the daily pipeline writes a fresh file, the API reads
+            it. There's no concurrent writes, no complex queries, no joins across tables. A
+            Parquet file loaded into memory at startup and reloaded when the file changes is faster
+            than a database round-trip and requires zero infrastructure. No connection pools, no
+            migrations, no database to babysit.
+          </p>
+          <p class="mb-4">
+            <strong class="text-text-primary font-medium">GitHub Actions for scheduling.</strong>
+            Free, built-in failure notifications, no server needed. A cron job at 10PM UTC (6AM
+            Philippine time) kicks off the pipeline every morning. If it fails, GitHub emails me.
+            The alternative was a cron on Railway — which costs money and loses its schedule if
+            the service sleeps.
+          </p>
+          <p class="mb-4">
+            <strong class="text-text-primary font-medium">FastAPI over Flask/Django.</strong>
+            Seven endpoints, all read-only. FastAPI's async support and automatic OpenAPI docs
+            were worth more than the familiarity of Flask. The in-memory Parquet cache reloads
+            on file modification time — no cache-busting needed, no explicit invalidation.
+          </p>
+          <p>
+            <strong class="text-text-primary font-medium">React over Streamlit.</strong> I started
+            with Streamlit. Replaced it completely in Phase 3. Streamlit has a design ceiling that
+            became visible fast — same sidebar pattern on every app, no real control over
+            typography, no custom hover states, no way to build a proper landing page separate
+            from the dashboard. For something that needed to feel like a product and not a demo,
+            Streamlit wasn't the right tool. The FastAPI backend was completely unchanged by
+            the switch.
+          </p>
+        </section>
+
+        <!-- DATA SOURCES -->
+        <section>
+          <div class="flex items-center gap-3 mb-1">
+            <span class="text-xs font-mono text-accent/60 uppercase tracking-wider">Phase 1</span>
+          </div>
+          <h2 class="text-lg font-semibold text-text-primary mb-5">Data sources — and why the original plan was wrong</h2>
+
+          <p class="mb-4">
+            The original plan was to scrape JobStreet PH and Indeed PH. They're the biggest
+            boards. Obvious starting point.
+          </p>
+          <p class="mb-4">
+            Both sites run serious anti-bot infrastructure — Cloudflare challenge pages, TLS
+            fingerprinting, behavioral detection. Not "your scraper will get blocked sometimes."
+            More like "your scraper gets blocked before a single DOM element loads." And both
+            prohibit scraping in their Terms of Service, which means even if you get it working,
+            your live demo could go dark mid-interview when a recruiter tries the link.
+          </p>
+          <p class="mb-4">
+            The revised pipeline uses three sources that actually work:
+          </p>
+
+          <div class="border border-border rounded-lg overflow-hidden mb-5">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-border bg-surface/40">
+                  <th class="text-left px-4 py-3 text-text-muted font-mono text-xs">Source</th>
+                  <th class="text-left px-4 py-3 text-text-muted font-mono text-xs">Method</th>
+                  <th class="text-left px-4 py-3 text-text-muted font-mono text-xs">Why it works</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-border">
+                <tr>
+                  <td class="px-4 py-3 text-accent font-mono text-xs">DOLE Phil-JobNet</td>
+                  <td class="px-4 py-3 text-text-muted text-xs">Scrape</td>
+                  <td class="px-4 py-3 text-text-muted text-xs">Government site, zero blocking, stable HTML</td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-3 text-accent font-mono text-xs">JSearch (RapidAPI)</td>
+                  <td class="px-4 py-3 text-text-muted text-xs">API</td>
+                  <td class="px-4 py-3 text-text-muted text-xs">Aggregates Indeed data legally, 500 req/month free</td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-3 text-accent font-mono text-xs">Kalibrr</td>
+                  <td class="px-4 py-3 text-text-muted text-xs">Scrape</td>
+                  <td class="px-4 py-3 text-text-muted text-xs">Philippine-native board, server-rendered HTML</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="mb-4">
+            The cleaner handles normalizing all three into a unified schema, extracting skills
+            from job descriptions using keyword matching, and geocoding location strings to
+            Philippine city coordinates. Cross-source deduplication was an interesting problem:
+            the same job sometimes appeared on both JSearch and Kalibrr. Instead of dropping one,
+            the cleaner merges them into a single record with a list of <code>apply_urls</code>
+            — one card in the UI, multiple "Apply on LinkedIn" and "Apply on Kalibrr" buttons
+            labeled by platform.
+          </p>
+          <p>
+            DOLE had a subtle cross-run bug: job IDs were generated by hashing the title,
+            company, and the scraped "posted" text ("2 days ago"). That text changes every day.
+            Different hash → different ID → the pipeline treated the same physical job as a new
+            listing every morning, accumulating duplicate rows over time. Fixed by using the
+            job's page URL as the ID source. URLs are permanent. "2 days ago" is not.
+          </p>
+        </section>
+
+        <!-- CHATBOT KILLED -->
+        <section>
+          <div class="flex items-center gap-3 mb-1">
+            <span class="text-xs font-mono text-accent/60 uppercase tracking-wider">Design Decision</span>
+          </div>
+          <h2 class="text-lg font-semibold text-text-primary mb-5">The chatbot that never got built</h2>
+
+          <p class="mb-4">
+            The original design had a RAG chatbot in the dashboard — user types a question,
+            the app retrieves relevant job postings from a vector store, sends them to Groq,
+            streams back an answer. Standard AI-over-data pattern. Looks impressive on paper.
+          </p>
+          <p class="mb-4">
+            I killed it before writing a single line of the implementation.
+          </p>
+          <p class="mb-4">
+            Groq's free tier has rate limits: requests per minute and requests per day. Every
+            single chat message triggers one API call. Three people using the demo simultaneously,
+            two messages each — that's six calls in a short window. On the free tier, you start
+            hitting limits. The chatbot begins erroring silently. A recruiter clicks your
+            portfolio link, types a question, gets nothing back. That's the impression it leaves.
+          </p>
+          <p class="mb-4">
+            Beyond the rate limit: the highest-value questions anyone would ask — what's growing,
+            what skills are needed, where are the jobs — are the same for almost every user.
+            There's no reason to make them ask.
+          </p>
+          <p class="mb-4">
+            Replaced it with a pre-computed Market Intelligence Panel. One Groq call at the
+            end of each daily pipeline run generates a structured JSON file: fastest growing
+            roles with percentages, most in-demand skills ranked by frequency, top hiring cities,
+            notable market shifts. That JSON gets committed to the repo and served instantly from
+            a FastAPI endpoint. Zero per-user API cost. Zero latency. Never errors during a demo.
+          </p>
+          <p>
+            The question to ask before adding any AI feature: "what happens to this feature at
+            the exact moment it needs to impress someone?" Rate limits are real. Design around them.
+          </p>
+        </section>
+
+        <!-- SKILL GAP ANALYZER -->
+        <section>
+          <div class="flex items-center gap-3 mb-1">
+            <span class="text-xs font-mono text-accent/60 uppercase tracking-wider">Feature</span>
+          </div>
+          <h2 class="text-lg font-semibold text-text-primary mb-5">The Skill Gap Analyzer — and why it's client-side</h2>
+
+          <p class="mb-4">
+            The most-requested feature: "I have these skills — what am I missing for this role?"
+            The Skill Gap Analyzer is a two-step flow that answers it with real data.
+          </p>
+          <p class="mb-4">
+            <strong class="text-text-primary font-medium">Step 1:</strong> Enter a target role
+            and city, hit Analyze. The <code>/skill-gap</code> endpoint filters
+            <code>latest.parquet</code> by role and city, counts how often each skill appears
+            across matching job descriptions, and returns the top 20 ranked by frequency with
+            percentage. Not a survey. Not a synthetic dataset. The actual text of live job
+            postings, counted. Matching job listings load in the right column so the output is
+            immediately actionable — you can apply before you've even finished analyzing.
+          </p>
+          <p class="mb-4">
+            <strong class="text-text-primary font-medium">Step 2:</strong> Enter your skills
+            comma-separated, hit Compare. This part is entirely client-side — a JavaScript set
+            intersection against the data already on screen. No extra API call. Skills from the
+            job data that you have turn green. Missing ones turn amber. A match percentage and
+            ranked bar chart of the top skills to learn give the result a clear narrative.
+          </p>
+          <p>
+            The decision to keep the comparison client-side was intentional. An API call for
+            step 2 would add latency and another rate-limit surface. The job data is already
+            in the browser after step 1. The comparison is arithmetic. There's no reason to
+            send it to a server.
+          </p>
+        </section>
+
+        <!-- MAP CLICK -->
+        <section>
+          <div class="flex items-center gap-3 mb-1">
+            <span class="text-xs font-mono text-accent/60 uppercase tracking-wider">Engineering</span>
+          </div>
+          <h2 class="text-lg font-semibold text-text-primary mb-5">How we got the map to respond to clicks</h2>
+
+          <p class="mb-4">
+            The map needed to zoom in to a city when the user clicked its bubble. Sounds simple.
+            Plotly has a <code>plotly_click</code> event for exactly this. I wired it up.
+            It never fired.
+          </p>
+          <p class="mb-4">
+            Here's the problem: Plotly's geo chart registers its own pan/drag handler at the
+            mousedown level. This handler sits between the raw DOM and Plotly's event re-dispatch
+            system and intercepts pointer events before they can be classified as "click" vs.
+            "drag." By the time the mouse button releases, the geo handler has already consumed
+            the event. <code>plotly_click</code> receives nothing. This is not a configuration
+            issue — the handler is in Plotly's source, and there's no way to disable it.
+          </p>
+          <p class="mb-4">
+            Three approaches failed before finding the one that worked:
+          </p>
+          <ul class="space-y-2 pl-4 mb-5">
+            <li class="flex items-start gap-3">
+              <span class="shrink-0 font-mono text-accent/50 text-xs mt-0.5">✗</span>
+              <span><code>plotly_click</code> callback — never fires on geo charts</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="shrink-0 font-mono text-accent/50 text-xs mt-0.5">✗</span>
+              <span>Native DOM <code>click</code> listener on the chart container — same problem, the drag handler suppresses it</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="shrink-0 font-mono text-accent/50 text-xs mt-0.5">✗</span>
+              <span><code>clickmode: "event"</code> layout option — documented as "fires on any click," had no effect on geo charts specifically</span>
+            </li>
+          </ul>
+          <p class="mb-4">
+            The solution: native <code>mousedown</code> and <code>mouseup</code> DOM listeners.
+            Record cursor position at <code>mousedown</code>. At <code>mouseup</code>, if the
+            cursor moved less than 5 pixels, classify it as a click rather than a drag. Check
+            a ref for the currently hovered city. If set, zoom. <code>mouseup</code> fires even
+            while Plotly's drag handler is active — the 5px threshold is what separates a
+            genuine click from a pan gesture.
+          </p>
+          <p>
+            The hovered city is stored in a ref rather than React state because native event
+            listener closures capture state at registration time, not at call time. A ref
+            always reflects the live value regardless of when the closure was created.
+          </p>
+        </section>
+
+        <!-- DEPLOYMENT -->
+        <section>
+          <div class="flex items-center gap-3 mb-1">
+            <span class="text-xs font-mono text-accent/60 uppercase tracking-wider">Deployment</span>
+          </div>
+          <h2 class="text-lg font-semibold text-text-primary mb-5">Deployment — how fresh data gets to Railway every morning</h2>
+
+          <p class="mb-4">
+            The core deployment challenge wasn't "how do I host FastAPI." It was "how does
+            Railway get a new Parquet file every morning without me touching anything?"
+          </p>
+          <p class="mb-4">
+            Parquet files are gitignored locally — they're generated output, not source code,
+            and you don't want binary data in version control under normal circumstances. But
+            Railway builds directly from the git repo. If the Parquets aren't there, Railway
+            boots up with no data and every API endpoint returns empty results. The app is live,
+            requests come in, and everything returns zero jobs. Silently.
+          </p>
+          <p class="mb-4">
+            The solution is to commit the data files as part of the pipeline run. GitHub Actions
+            runs the pipeline each morning, writes fresh Parquets to <code>data/</code>, then
+            runs <code>git add -f data/</code> (the <code>-f</code> flag overrides
+            <code>.gitignore</code>), commits, and pushes. Railway has auto-deploy on push
+            enabled — it detects the new commit, pulls the repo, and redeploys the FastAPI
+            service with the updated data file on disk. The whole cycle takes about four minutes
+            from pipeline start to live data on Railway.
+          </p>
+          <p class="mb-4">
+            This pattern — using the git repo itself as the data transport layer — is
+            unconventional but genuinely effective for read-only analytics data that updates
+            daily. It's also free: no S3, no object storage, no database sync. The pipeline
+            commit history doubles as an audit log of every daily run.
+          </p>
+          <p class="mb-4">
+            One permission issue: <code>GITHUB_TOKEN</code>, the token GitHub Actions injects
+            automatically into every workflow, is read-only by default in newer repository
+            settings. The <code>git push</code> step failed with exit code 128 — git's
+            generic authentication failure code — until the workflow permissions were set to
+            "Read and write" in repo settings. One toggle, no code change.
+          </p>
+          <p>
+            The map also had a near-miss on deployment: the original implementation used Plotly's
+            <code>Scattermapbox</code> with Carto tile layers. Those tiles load from Mapbox's
+            CDN and require a Mapbox access token even for "free" third-party styles. Without
+            the token in the environment, the map renders as a blank white box — no error,
+            just nothing. Switched to <code>Scattergeo</code>, Plotly's built-in geographic
+            renderer that works with no token and no external requests. The visual difference
+            on a bubble density map is minimal; the operational difference (works everywhere,
+            always) is not.
+          </p>
+        </section>
+
+        <!-- BY THE NUMBERS -->
+        <section>
+          <p class="text-xs font-mono text-accent uppercase tracking-[0.2em] mb-2">By The Numbers</p>
+          <div class="w-10 h-px bg-accent mb-6"></div>
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+            {stats.map(({ value, label, sub }) => (
+              <div class="bg-surface border border-border rounded-lg p-4">
+                <div class="text-2xl font-bold text-accent font-mono mb-1">{value}</div>
+                <div class="text-text-primary text-sm font-medium">{label}</div>
+                <div class="text-text-muted text-xs font-mono mt-0.5">{sub}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <!-- WHAT I'D DO DIFFERENTLY -->
+        <section>
+          <p class="text-xs font-mono text-accent uppercase tracking-[0.2em] mb-2">What I'd do differently</p>
+          <div class="w-10 h-px bg-accent mb-6"></div>
+          <ul class="space-y-3">
+            {[
+              'Start with Parquet + React from day one. The Streamlit → React rewrite cost two full sessions and produced no user-visible improvement — the final product would have been identical if I\'d made the right call upfront.',
+              'Design for rate limits before writing a single AI feature. The chatbot would have worked fine in development and failed in production the moment two people used it simultaneously. Ask "what happens at demo time" before "is this technically possible."',
+              'Define the ID schema before writing the first scraper. Any ID field derived from relative timestamps, dynamic text, or anything that changes between runs will generate phantom duplicates. The DOLE dedup bug was avoidable on day one if the ID format had been decided upfront.',
+              'Set up the GitHub Actions pipeline before building features, not after. The whole point of the platform is live, auto-refreshing data. Developing against a static local Parquet means you\'re building against a different dataset than production runs on — and the pipeline architecture constraints only become visible when you actually wire it up.',
+            ].map((item) => (
+              <li class="flex items-start gap-3 text-sm">
+                <span class="shrink-0 font-mono text-accent text-xs mt-0.5">→</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <!-- WHAT'S NEXT -->
+        <section>
+          <p class="text-xs font-mono text-accent uppercase tracking-[0.2em] mb-2">What's next</p>
+          <div class="w-10 h-px bg-accent mb-6"></div>
+          <ul class="space-y-3">
+            {[
+              'More data sources — JobStreet via official API if one becomes available, or additional Philippine-native boards.',
+              'Historical skill trend charts: how has demand for Python vs. SQL changed over the past 6 months, by city.',
+              'Salary intelligence: right now very few Philippine job postings disclose salary ranges. As the dataset grows, there\'s enough to show meaningful distributions for the roles that do.',
+              'NLP-based skill extraction instead of keyword matching — the current pipeline matches against a fixed skills list, which misses synonyms and novel frameworks.',
+            ].map((item) => (
+              <li class="flex items-start gap-3 text-sm">
+                <span class="shrink-0 font-mono text-accent text-xs mt-0.5">→</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </section>
+
+      </div>
+
+      <!-- ── FOOTER CTA ── -->
+      <div class="border-t border-border mt-14 pt-12">
+        <div class="flex flex-wrap gap-3">
+          <a
+            href="https://hire-map-ph.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-5 py-2.5 bg-accent text-background font-mono text-sm font-medium rounded-sm hover:bg-accent/90 transition-colors"
+          >
+            Live Demo
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <path d="M7 17L17 7M17 7H7M17 7v10"/>
+            </svg>
+          </a>
+          <a
+            href="https://github.com/aces-14/HireMapPH.git"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-5 py-2.5 border border-border text-text-muted font-mono text-sm rounded-sm hover:border-accent/40 hover:text-accent transition-all"
+          >
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.341-3.369-1.341-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.607.069-.607 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.087.636-1.337-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.934.359.309.678.919.678 1.852 0 1.337-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.138 20.161 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+            </svg>
+            GitHub
+          </a>
+          <a
+            href="/#projects"
+            class="inline-flex items-center gap-2 px-5 py-2.5 border border-border text-text-muted font-mono text-sm rounded-sm hover:border-accent/40 hover:text-accent transition-all"
+          >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            All Projects
+          </a>
+        </div>
+        <p class="text-text-muted/50 font-mono text-xs mt-6 leading-relaxed">
+          Data sourced from DOLE Phil-JobNet (public), JSearch API (RapidAPI), and Kalibrr.<br/>
+          HireMap PH is not affiliated with any of these platforms.
+        </p>
+      </div>
+
+    </article>
+  </div>
+
+  <style>
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    code {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.8em;
+      background: rgba(0, 217, 255, 0.07);
+      border: 1px solid rgba(0, 217, 255, 0.15);
+      border-radius: 3px;
+      padding: 0.1em 0.4em;
+      color: #00D9FF;
+    }
+  </style>
+</BaseLayout>
