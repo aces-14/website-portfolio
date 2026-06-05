@@ -184,6 +184,57 @@ const illustrations: Record<string, string> = {
       <text x="206" y="66" font-family="monospace" font-size="6" fill="#00D9FF" opacity="0.38">93.96%</text>
     </svg>`,
 
+  hiremaph: `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 78" fill="none" preserveAspectRatio="xMidYMid meet" style="width:100%;height:100%">
+      <radialGradient id="ph-map-glow" cx="30%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#00D9FF" stop-opacity="0.1"/>
+        <stop offset="100%" stop-color="#00D9FF" stop-opacity="0"/>
+      </radialGradient>
+      <circle cx="55" cy="38" r="30" fill="url(#ph-map-glow)"/>
+
+      <!-- Luzon (top island blob) -->
+      <ellipse cx="52" cy="22" rx="20" ry="12" stroke="#00D9FF" stroke-width="1" opacity="0.32" fill="#00D9FF" fill-opacity="0.04"/>
+      <!-- Visayas (middle scatter) -->
+      <ellipse cx="68" cy="42" rx="10" ry="6" stroke="#00D9FF" stroke-width="0.8" opacity="0.25" fill="#00D9FF" fill-opacity="0.03"/>
+      <ellipse cx="48" cy="44" rx="8" ry="5" stroke="#00D9FF" stroke-width="0.8" opacity="0.22" fill="#00D9FF" fill-opacity="0.03"/>
+      <!-- Mindanao (bottom island blob) -->
+      <ellipse cx="55" cy="62" rx="18" ry="9" stroke="#00D9FF" stroke-width="1" opacity="0.28" fill="#00D9FF" fill-opacity="0.04"/>
+
+      <!-- Job density bubbles (city markers) -->
+      <circle cx="50" cy="20" r="9" fill="#00D9FF" fill-opacity="0.28" stroke="#00D9FF" stroke-width="1" opacity="0.7"/>
+      <circle cx="50" cy="20" r="4" fill="#00D9FF" opacity="0.85"/>
+      <circle cx="66" cy="40" r="6" fill="#00D9FF" fill-opacity="0.22" stroke="#00D9FF" stroke-width="0.8" opacity="0.6"/>
+      <circle cx="66" cy="40" r="2.5" fill="#00D9FF" opacity="0.75"/>
+      <circle cx="54" cy="61" r="5" fill="#00D9FF" fill-opacity="0.18" stroke="#00D9FF" stroke-width="0.8" opacity="0.52"/>
+      <circle cx="54" cy="61" r="2" fill="#00D9FF" opacity="0.65"/>
+      <circle cx="36" cy="30" r="3.5" fill="#00D9FF" fill-opacity="0.15" stroke="#00D9FF" stroke-width="0.7" opacity="0.45"/>
+
+      <!-- Divider -->
+      <line x1="104" y1="6" x2="104" y2="72" stroke="#00D9FF" stroke-width="0.5" stroke-dasharray="3 3" opacity="0.2"/>
+
+      <!-- Right: horizontal skill bar chart -->
+      <line x1="114" y1="68" x2="272" y2="68" stroke="#00D9FF" stroke-width="0.8" opacity="0.3"/>
+
+      <!-- Bar 1 (Python - longest) -->
+      <text x="114" y="21" font-family="monospace" font-size="6.5" fill="#00D9FF" opacity="0.5">Python</text>
+      <rect x="114" y="24" width="130" height="7" rx="2" fill="#00D9FF" fill-opacity="0.05" stroke="#00D9FF" stroke-width="0.5" opacity="0.3"/>
+      <rect x="114" y="24" width="130" height="7" rx="2" fill="#00D9FF" fill-opacity="0.35"/>
+
+      <!-- Bar 2 (SQL) -->
+      <text x="114" y="37" font-family="monospace" font-size="6.5" fill="#00D9FF" opacity="0.5">SQL</text>
+      <rect x="114" y="40" width="130" height="7" rx="2" fill="#00D9FF" fill-opacity="0.05" stroke="#00D9FF" stroke-width="0.5" opacity="0.3"/>
+      <rect x="114" y="40" width="104" height="7" rx="2" fill="#00D9FF" fill-opacity="0.28"/>
+
+      <!-- Bar 3 (React) -->
+      <text x="114" y="53" font-family="monospace" font-size="6.5" fill="#00D9FF" opacity="0.5">React</text>
+      <rect x="114" y="56" width="130" height="7" rx="2" fill="#00D9FF" fill-opacity="0.05" stroke="#00D9FF" stroke-width="0.5" opacity="0.3"/>
+      <rect x="114" y="56" width="78" height="7" rx="2" fill="#00D9FF" fill-opacity="0.2"/>
+
+      <!-- Labels -->
+      <text x="16" y="74" font-family="monospace" font-size="6" fill="#00D9FF" opacity="0.42">JOB DENSITY MAP</text>
+      <text x="148" y="74" font-family="monospace" font-size="6" fill="#00D9FF" opacity="0.42">SKILL DEMAND</text>
+    </svg>`,
+
   codelens: `
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 78" fill="none" preserveAspectRatio="xMidYMid meet" style="width:100%;height:100%">
       <radialGradient id="cl-glow" cx="50%" cy="50%" r="50%">
